@@ -66,3 +66,15 @@ same place in both strings.
     stringMatch('abc','abc) → 2
         stringMatch('abc', 'axc') → 0
 """
+
+
+def string_match(str_one, str_two):
+    count = 0
+    for i in range(0, min(len(str_one), len(str_two)) - 1):  # range(0,5) -> 0, 1, 2, 3, 4
+        # Python iterables (strings, lists) can be indexed and sliced
+        if str_one[i:i + 2] == str_two[i:i + 2]:
+            count += 1
+    return count
+
+
+print(string_match("xxcaazzabcdefg", "xxbaaz"))
