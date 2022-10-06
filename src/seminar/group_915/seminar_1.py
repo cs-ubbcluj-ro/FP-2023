@@ -24,5 +24,36 @@ def count_vowles(word):
     return count
 
 
-oh_my_word = input("Word to count vowels for: ")
-print("There are " + str(count_vowles(oh_my_word)) + " in word " + oh_my_word)
+# oh_my_word = input("Word to count vowels for: ")
+# print("There are " + str(count_vowles(oh_my_word)) + " in word " + oh_my_word)
+
+"""
+Write a function in Python that accepts a decimal number and returns the equivalent binary number. To make this simple, 
+the decimal number will always be less than 1,024, so the binary number returned will always be less than ten digits 
+long.
+"""
+
+
+def convert_base_2(number):
+    """
+    Convert given number to base 2
+    :param number: Number to convert
+    :return: List of the number's digits in base 2 representation (e.g., 6 -> [1, 1, 0])
+    """
+    digit_list = []
+
+    while number != 0:
+        # digit_list.append(number % 2)
+        digit_list.insert(0, number % 2)
+        number //= 2  # <=> number = number // 2
+    return digit_list
+
+
+my_number = int(input("Enter the number to convert to base 2"))
+digit_list = convert_base_2(my_number)
+
+as_string = ""
+for el in digit_list:
+    as_string += str(el)
+
+print("Value " + str(my_number) + " in base 2: " + as_string)
