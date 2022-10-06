@@ -49,11 +49,20 @@ def convert_base_2(number):
     return digit_list
 
 
-my_number = int(input("Enter the number to convert to base 2"))
-digit_list = convert_base_2(my_number)
+# my_number = int(input("Enter the number to convert to base 2"))
+# digit_list = convert_base_2(my_number)
+#
+# as_string = ""
+# for el in digit_list:
+#     as_string += str(el)
+#
+# print("Value " + str(my_number) + " in base 2: " + as_string)
 
-as_string = ""
-for el in digit_list:
-    as_string += str(el)
-
-print("Value " + str(my_number) + " in base 2: " + as_string)
+"""
+Given 2 strings, a and b, return the number of the positions where they contain the same length 2
+substring. So "xxcaazz" and "xxbaaz" yields 3, since the "xx", "aa", and "az" substrings appear in the
+same place in both strings.
+    stringMatch('xxcaazz', 'xxbaaz') → 3
+    stringMatch('abc','abc) → 2
+        stringMatch('abc', 'axc') → 0
+"""
