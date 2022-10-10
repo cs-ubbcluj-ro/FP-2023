@@ -6,6 +6,10 @@ Let's write a menu-driven application. What does the menu look like?
 import random
 
 
+def sort_names(name_list):
+    pass
+
+
 def generate_names():
     count = int(input("How many names to generate? "))  # int() converts to integer
 
@@ -29,13 +33,17 @@ def start():
 
     while True:
         print("1. Generate (random) person names")
-        print("2. Exit")
+        print("2. Sort list of names")
+        print("0. Exit")
 
         opt = input(">")
 
+        names_list = []
         if opt == "1":
-            generate_names()
+            names_list = generate_names()
         elif opt == "2":
+            sort_names(names_list)
+        elif opt == "0":
             return  # break would have also been acceptable
         else:
             print("Bad command or file name")
