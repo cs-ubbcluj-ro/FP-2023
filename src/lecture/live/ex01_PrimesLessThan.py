@@ -28,10 +28,11 @@ def allPrimesLessThan(n):
             result.append(i)
     return result
 
-while True:
-    n = int(input("Input an integer number (0 to exit the program): "))
-    if n == 0:
-        break
-    l = allPrimesLessThan(n)
-    print("Prime numbers less than " + str(n) + ": ")
-    print(l)
+if __name__ == "__main__":
+    while True:
+        n = int(input("Input an integer number (0 to exit the program): "))
+        if n == 0:
+            break
+        l = allPrimesLessThan(n)
+        print("Prime numbers less than " + str(n) + ": ")
+        print(l)
