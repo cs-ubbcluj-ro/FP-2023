@@ -1,5 +1,6 @@
 from traceback import print_exc
 import random
+import math
 
 """
 Let's create a menu-driven application. This is the menu:
@@ -15,27 +16,44 @@ Let's create a menu-driven application. This is the menu:
 
 def create_q(num, denom=1):
     # TODO What about 1/0 !!
-    return [num, denom]
+    gcd = math.gcd(num, denom)
+    return [num // gcd, denom // gcd]
 
 
-def generate_q():
-    """
-    1. Ask user how many numbers
-    2. Generate random num (in -10,10), denom (1, 20)
-    3. Print the numbers
-    3. Return the list of numbers
-    """
-    pass
+def generate_rationals_v2():
+    """Function used in order to generate rational numbers"""
+    numbers_list = []
+
+    nr_numbers = input("Please input how many numbers you'd like to store.")
+    nr_numbers = int(nr_numbers)
+
+    for iterator in range(0, nr_numbers):
+        num = random.randint(-10, 10)
+        denom = random.randint(1, 20)
+        numbers_list.append(create_q(num, denom))
+
+    for q in numbers_list:
+        print(tranform_to_string(q))
+    return numbers_list
 
 
-def to_str(q):
+def tranform_to_string(rational_nr_list):
     """
-    Represent the rational number as a string
-    :param q: Rational number
-    :return: str representation
+    Function used in order to represent the rational number as a string
+
+    :param rational_nr_list: a list of num and denom
+    :return: a string
     """
-    # TODO Implement me!
-    pass
+    num, denom = rational_nr_list
+    result = num / denom
+    int_result = int(result)
+
+    if result == int_result:
+        string_to_be_returned = str(result)
+    else:
+        string_to_be_returned = f"{num} / {denom}"
+
+    return string_to_be_returned
 
 
 def start():
@@ -48,7 +66,7 @@ def start():
 
         # print(type(opt))
         if opt == "1":
-            pass
+            generate_rationals_v2()
         elif opt == "2":
             pass
         elif opt == "0":
