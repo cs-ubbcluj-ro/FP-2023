@@ -28,6 +28,16 @@ def generate_q():
     pass
 
 
+def to_str(q):
+    """
+    Represent the rational number as a string
+    :param q: Rational number
+    :return: str representation
+    """
+    # TODO Implement me!
+    pass
+
+
 def start():
     while True:
         print("1. Generate rational numbers")
