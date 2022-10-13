@@ -18,16 +18,45 @@ def create_point(x=0, y=0):
     :param y: Y coordinate
     :return: The created point
     """
-    return (x, y)
+    return {"x": x, "y": y}
+    # return (x, y)
+
+
+def get_x(p):
+    return p["x"]
+
+
+def get_y(p):
+    return p["y"]
 
 
 def to_str(point):
     """
-    Return the point's str representation (e.g., (5,2) => "(x=5, y=2)"
+    Return the point's str representation (e.g., (5,2) => "(x=5, y=2)")
     :param point: Point to represent as str
     :return: The point's str representation
     """
-    # TODO Implement me!
+    return "x=" + str(get_x(point)) + ", y=" + str(get_y(point))
+    # return f"x={point[0]}, y={point[1]}"
+
+
+def distance_center(point):
+    """
+    Return the Euclidean distance between the point and (0,0)
+    :param point:
+    :return: The distance as a float
+    """
+    # TODO Implement me
+    pass
+
+
+def sort_points(point_list):
+    """
+    Sort the points by distance to center
+    :param point_list: The list of points
+    :return: The sorted list of points
+    """
+    # TODO Implement me
     pass
 
 
@@ -46,8 +75,10 @@ def generate_points():
         x = random.randint(-10, 10)
         y = random.randint(-10, 10)
         list_of_points.append(create_point(x, y))
-    # TODO Call to_str() when displaying each point
-    print(list_of_points)
+
+    # print(list_of_points)
+    for p in list_of_points:
+        print(to_str(p))
     return list_of_points
 
 
@@ -57,13 +88,14 @@ def start():
         print("2. Sort the points by distance from center")
         print("0. Exit")
 
+        point_list = []
         opt = input(">")
         # print(type(opt))
 
         if opt == "1":
-            generate_points()
+            point_list = generate_points()
         elif opt == "2":
-            pass
+            sort_points(point_list)
         elif opt == "0":
             return  # or break
         else:
