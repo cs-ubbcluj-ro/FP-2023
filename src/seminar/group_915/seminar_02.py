@@ -4,6 +4,7 @@ Let's write a menu-driven application to work with points in 2D space.
     2. Sort the points by distance from center
     0. Exit
 """
+import math
 import random
 
 """
@@ -46,8 +47,10 @@ def distance_center(point):
     :param point:
     :return: The distance as a float
     """
-    # TODO Implement me
-    pass
+    x = get_x(point)
+    y = get_y(point)
+
+    return math.sqrt(x * x + y * y)
 
 
 def sort_points(point_list):
@@ -56,8 +59,11 @@ def sort_points(point_list):
     :param point_list: The list of points
     :return: The sorted list of points
     """
-    # TODO Implement me
-    pass
+    point_list.sort(key=distance_center)
+
+    for p in point_list:
+        print(to_str(p))
+    return point_list
 
 
 def generate_points():
@@ -83,19 +89,19 @@ def generate_points():
 
 
 def start():
+    point_list = []
     while True:
         print("1. Generate points in 2D space")
         print("2. Sort the points by distance from center")
         print("0. Exit")
 
-        point_list = []
         opt = input(">")
         # print(type(opt))
 
         if opt == "1":
             point_list = generate_points()
         elif opt == "2":
-            sort_points(point_list)
+            point_list = sort_points(point_list)
         elif opt == "0":
             return  # or break
         else:
@@ -103,3 +109,14 @@ def start():
 
 
 start()
+
+"""
+def add(a, b):
+    return a + b
+
+
+x = add
+
+print(type(x))
+print(x(3, 4,5))
+"""
