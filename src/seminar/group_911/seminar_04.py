@@ -1,5 +1,24 @@
 """
-    Divide & Conquer
+Divide & Conquer
+
+1. Divide - the problem into smaller subproblems (not overlapping)
+2. Conquer - solve the "small" problems directly (no d&c)
+3. Combine - "small" problem results into the solution of the original one
+
+Binary search
+1. Divide => decide in which half of the array to continue
+2. Conquer => find the element/run out of list (left >= right)
+3. Combine => nothing to do here
+
+Merge Sort
+1. Divide => split the array into two halves
+2. Conquer => single-element arrays are already sorted
+3. Combine => merge arrays until we get to the large, sorted one
+
+Quick Sort
+1. Divide => select a pivot, partition the array around it
+2. Conquer => continue for the subarrays left and right of pivot
+3. Combine => nothing to do here
 """
 
 """
@@ -8,6 +27,44 @@
     b. Divide in halves, non-recursive
     c. Divide in halves, recursive
 """
+import random
+
+
+def _find_min_impl(array: list, index: int):
+    """
+    Return the smallest element in the array.
+    :param index:
+    :param array:
+    :return: Smallest element in array. None if array is empty.
+    """
+    if len(array) - 1 == index:
+        return array[index]
+    return min(array[index], _find_min_impl(array, index + 1))
+
+
+def find_min(array: list):
+    if len(array) == 0:
+        return None
+    return _find_min_impl(array, 0)
+
+
+def test_find_min():
+    # length of random list
+    n = random.randint(0, 50)
+    data = []
+    for i in range(n):
+        data.append(random.randint(1, 10))
+
+    # insert the known minimal element in a random, but known position
+    index = random.randint(0, len(data) - 1)
+    data.insert(index, -1)
+
+    print(data)
+    result = find_min(data)
+    assert result == -1, (result, index)
+
+
+test_find_min()
 
 """
 2. Exponential search
@@ -74,7 +131,7 @@ def bkt_rec(x, n):
                 bkt_rec(x[:], n)
 
 
-bkt_rec([], 4)
+# bkt_rec([], 4)
 
 """
 6. Change the code for generating the permutation above to work for the n-Queen problem
