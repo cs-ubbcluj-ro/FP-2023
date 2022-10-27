@@ -1,14 +1,90 @@
 """
-    Divide & Conquer
+    Divide & Conquer + Combine (the results of the small, already solved subproblems
+"""
+import random
 
 """
-
-"""
-1. Find the smallest number in a list (chip & conquer, divide in halves, recursive vs non-recursive)
+1. Find the smallest number in a list (chip & conquer, divide in halves, recursive vs non-recursive). Return None for
+    an empty list
     a. Chip & conquer, recursive
     b. Divide in halves, non-recursive
     c. Divide in halves, recursive
 """
+
+
+# a. Chip & conquer, recursive
+def array_min_impl(array: list, start_index: int):
+    if start_index == len(array) - 1:
+        return array[start_index]
+    return min(array_min_impl(array, start_index + 1), array[start_index])
+
+
+def array_min(array: list):
+    if len(array) == 0:
+        return None
+    return array_min_impl(array, 0)
+
+
+# b. Divide in halves, non-recursive
+def divide_in_halves_iter(my_list: list):
+    """Returns the smallest number from a list"""
+    if not len(my_list):
+        return None
+
+    min_found = my_list[0]
+    stack = [(0, len(my_list) - 1)]
+
+    # As long as we have elements in the stack
+    while len(stack):
+        left, right = stack.pop()
+        if left == right:
+            min_found = min(my_list[left], min_found)
+
+            # Then we continue with the next item from the stack
+            continue
+
+        # If we got to this point, it means left != right
+        mid = (left + right) // 2
+
+        # We look in the first half
+        stack.append((left, mid))
+
+        # We look in the second half
+        stack.append((mid + 1, right))
+
+    return min_found
+
+
+# c. Divide in halves, recursive
+def calc_array_min_impl(array: list, left, right: int):
+    if right == left:
+        return array[left]
+    mid = (left + right) // 2
+    return min(calc_array_min_impl(array, left, mid), calc_array_min_impl(array, mid + 1, right))
+
+
+def calc_array_min(array: list):
+    if len(array) == 0:
+        return None
+    return calc_array_min_impl(array, 0, len(array) - 1)
+
+
+def test_divide():
+    for count in range(1000):
+        length = random.randint(1, 100)
+        array = []
+        for i in range(length):
+            array.append(random.randint(-100, 100))
+        assert calc_array_min(array) == min(array), (calc_array_min(array), array)
+        assert array_min(array) == min(array), (array_min(array), array)
+        assert divide_in_halves_iter(array) == min(array), (divide_in_halves_iter(array), array)
+    # special case - empty array
+    assert calc_array_min([]) is None
+    assert array_min([]) is None
+    assert divide_in_halves_iter([]) is None
+
+
+test_divide()
 
 """
 2. Exponential search
@@ -75,7 +151,7 @@ def bkt_rec(x, n):
                 bkt_rec(x[:], n)
 
 
-bkt_rec([], 4)
+# bkt_rec([], 4)
 
 """
 6. Change the code for generating the permutation above to work for the n-Queen problem
