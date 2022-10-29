@@ -64,7 +64,7 @@ def test_find_min():
     assert result == -1, (result, index)
 
 
-test_find_min()
+# test_find_min()
 
 """
 2. Exponential search
@@ -73,6 +73,71 @@ test_find_min()
     c. Implement binary search
     d. Driver & test functions
 """
+
+
+def random_number_gen():
+    n = random.randint(50, 1000)
+    x = random.randint(0, 100)
+    array = [x]
+    for i in range(1, n):
+        array.append(x + i)
+    return array
+
+
+def random_number_gen_v2():
+    array = [random.randint(0, 10)]
+    for i in range(random.randint(5, 10)):
+        array.append(array[-1] + random.randint(0, 3))
+    return array
+
+
+# print(random_number_gen())
+# print(random_number_gen_v2())
+
+
+# TODO Improve this for cases when the searched element is beyond the (min, max)
+# of the list
+def exponential_search(data: list, n: int):
+    if data[0] == n:
+        return 0, 0
+    i = 1
+    # Python will not check the second term of the expression if the first
+    # is false
+    while i < len(data) and data[i] < n:
+        if data[i] == n:
+            return i, i
+        else:
+            i *= 2
+    return i // 2, min(i, len(data) - 1)
+
+
+def exponential_search_v2(data: list, n: int):
+    """
+    Search element n in list
+    :param data:
+    :param n:
+    :return: The position of element n, -1 if not found
+    """
+    if data[0] == n:
+        return 0
+    i = 1
+    while i < len(data) and data[i] < n:
+        i *= 2
+
+    for idx in range(i // 2, min(i + 1, len(data) - 1)):
+        if data[idx] == n:
+            return idx
+    return -1
+
+    # TODO Start with linear search
+    # return i // 2, min(i, len(data) - 1)
+
+
+# data = random_number_gen_v2()
+# FIXME does not work in this case
+data = [0, 0, 2, 2, 3, 6, 7, 10]
+print(data)
+print(exponential_search_v2(data, 10))
 
 """
 3. Calculate the r-th root of a given number x with a given precision p

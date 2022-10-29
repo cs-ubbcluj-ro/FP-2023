@@ -69,22 +69,22 @@ def calc_array_min(array: list):
     return calc_array_min_impl(array, 0, len(array) - 1)
 
 
-def test_divide():
-    for count in range(1000):
-        length = random.randint(1, 100)
-        array = []
-        for i in range(length):
-            array.append(random.randint(-100, 100))
-        assert calc_array_min(array) == min(array), (calc_array_min(array), array)
-        assert array_min(array) == min(array), (array_min(array), array)
-        assert divide_in_halves_iter(array) == min(array), (divide_in_halves_iter(array), array)
-    # special case - empty array
-    assert calc_array_min([]) is None
-    assert array_min([]) is None
-    assert divide_in_halves_iter([]) is None
-
-
-test_divide()
+# def test_divide():
+#     for count in range(1000):
+#         length = random.randint(1, 100)
+#         array = []
+#         for i in range(length):
+#             array.append(random.randint(-100, 100))
+#         assert calc_array_min(array) == min(array), (calc_array_min(array), array)
+#         assert array_min(array) == min(array), (array_min(array), array)
+#         assert divide_in_halves_iter(array) == min(array), (divide_in_halves_iter(array), array)
+#     # special case - empty array
+#     assert calc_array_min([]) is None
+#     assert array_min([]) is None
+#     assert divide_in_halves_iter([]) is None
+#
+#
+# test_divide()
 
 """
 2. Exponential search
@@ -93,6 +93,39 @@ test_divide()
     c. Implement binary search
     d. Driver & test functions
 """
+
+
+def generate_random_increasing_array():
+    # n=length of array
+    n = random.randint(0, 100)
+    array = [random.randint(0, 100)]
+    for i_ul in range(1, n):
+        array.append(array[i_ul - 1] + random.randint(0, 2))
+    return array
+
+
+def exponential_search(array: list, key: int):
+    poz = 1
+    while poz <= len(array) - 1 and array[poz] < key:
+        poz *= 2
+
+    # TODO Replace the linear search with binary search
+    for i in range(poz // 2, min(poz + 1, len(array))):
+        if array[i] == key:
+            return i
+    return -1
+
+
+# def test_exponential_search():
+#     for i in range(1000):
+#         array = generate_random_increasing_array()
+#         pos = random.randint(0, len(array) - 1)
+#
+#         # array[...] as array the array is not strictly increasing
+#         assert array[exponential_search(array, array[pos])] == array[pos], (pos, array, array[pos])
+
+
+# test_exponential_search()
 
 """
 3. Calculate the r-th root of a given number x with a given precision p
@@ -151,7 +184,7 @@ def bkt_rec(x, n):
                 bkt_rec(x[:], n)
 
 
-# bkt_rec([], 4)
+bkt_rec([], 4)
 
 """
 6. Change the code for generating the permutation above to work for the n-Queen problem
