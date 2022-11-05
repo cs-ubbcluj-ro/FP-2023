@@ -35,9 +35,13 @@ def backtracking_iter(dim: int):
             array = array[:-1]  # go back one component
 
 
+
+
+
 def backtracking_rec(array, dim):
     if len(array) == dim:
         print(array)
+        pass
     if len(array) > dim:
         return
     array.append(0)
