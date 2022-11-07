@@ -49,15 +49,17 @@ import random
 
 # circle centered at (1,2) with radius 3 => [1, 2, 3]
 def new_circle(x, y, radius: int):
-    pass
+    if x is None or y is None or radius <= 0:
+        return None
+    return [x, y, radius]
 
 
 def get_center(circle):
-    pass
+    return circle[:2]
 
 
 def get_radius(circle):
-    pass
+    return circle[2]
 
 
 def to_str(circle):
@@ -120,7 +122,12 @@ def add_circle(circles_list: list, new_circle):
     :param new_circle: The new circle to add
     :return: 0 on success, 1 if circle with given center already exists
     """
-    pass
+    for circle in circles_list:
+        if get_center(circle) == get_center(new_circle):
+            return 1
+
+    circles_list.append(new_circle)
+    return 0
 
 
 #
@@ -135,7 +142,19 @@ def read_circle():
     radius must be > 0 integer (keep reading until true)
     :return: The new circle.
     """
-    pass
+    x = int(input("x="))
+    y = int(input("y="))
+    radius = int(input("radius="))
+    # TODO Add validation
+    return new_circle(x, y, radius)
+
+
+def menu(circle_list):
+    print("1. Add new circle")
+    print("2. Delete circle")
+    print("3. Print circles")
+    print("4. Exit")
+    print("Current list: ", circle_list)
 
 
 def start():
@@ -145,7 +164,19 @@ def start():
     # 2. Keep the list of circles
     # 3. Call the function corresponding to user choice
     # 4. Print out error messages coming from functions
-    pass
+    print("Hello!")
+    print("Initializing program with n circles...")
+    n = int(input("n="))
+    circle_list = make_random_circles(n)
+
+    while True:
+        menu(circle_list)
+        select = int(input(">"))
+        if select == 1:
+            if add_circle(circle_list, read_circle()) == 1:
+                print("Error. Concentric circles are not allowed.")
+        elif select == 4:
+            break
 
 
 if __name__ == "__main__":
