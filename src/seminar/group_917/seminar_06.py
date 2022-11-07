@@ -31,6 +31,7 @@ following features:
         - Try to reuse functions across functionalities (Less code to write and test)
         - Don't use global variables!
 """
+import random
 
 
 #
@@ -95,7 +96,25 @@ def to_str(student):
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
-def add_student(student_list : list, new_student):
+def generate_students(count: int):
+    family_name = ['Popescu', 'Marian', 'Pop', 'Lazarescu', 'Dincu']
+    given_name = ['Anca', 'Emilia', 'Liviu', 'Marius']
+
+    students = []
+
+    while count > 0:
+        family = random.choice(family_name)
+        given = random.choice(given_name)
+        full_name = family + " " + given
+
+        student = create_student(str(9000 + count), full_name, random.randint(4, 10))
+        students.append(student)
+        count -= 1
+    return students
+
+generate_students(5)
+
+def add_student(student_list: list, new_student):
     """
     Add the new student to the list
     :param student_list: The list of all students in the program
