@@ -32,6 +32,7 @@ The application will have a menu-driven user interface and will provide the foll
         - Try to reuse functions across functionalities (Less code to write and test)
         - Don't use global variables!
 """
+import random
 
 
 #
@@ -87,6 +88,30 @@ def to_str(circle):
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+def make_random_circles(count: int):
+    """
+    Create count random circles
+    :return: The list of newly created circles
+    """
+    assert count < 40 ** 2
+
+    circles_list = []
+    centers_x = list(range(-20, 20))
+    centers_y = list(range(-20, 20))
+
+    while count > 0:
+        x = random.choice(centers_x)
+        y = random.choice(centers_y)
+        centers_x.remove(x)
+        centers_y.remove(y)
+        radius = random.randint(1, 20)
+        circles_list.append(new_circle(x, y, radius))
+        count -= 1
+    return circles_list
+
+
+circ = make_random_circles(5)
+
 
 def add_circle(circles_list: list, new_circle):
     """
