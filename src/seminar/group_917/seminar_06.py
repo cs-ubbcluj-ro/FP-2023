@@ -32,6 +32,7 @@ following features:
         - Don't use global variables!
 """
 
+
 #
 # Write the implementation for Seminar 06 in this file
 #
@@ -44,6 +45,37 @@ following features:
 # -> Functions communicate using input parameters and their return values
 #
 
+# 9981, Popescu Ioana, 10 => ["9981", "Popescu Ioana", 10]
+def create_student(id, name: str, grade: int):
+    """
+    Create a new student
+    :return: The new student, or None if any of the fields are empty
+    """
+    pass
+
+
+def get_id(student):
+    pass
+
+
+def get_name(student):
+    pass
+
+
+def get_grade(student):
+    pass
+
+
+def to_str(student):
+    """
+    Return the str representation of the student
+    :param student: Given student
+    :return: For student 9981, Popescu Ioana, 10, return
+    "id: 9981; name: Popescu Ioana has grade 10"
+    """
+    pass
+
+
 #
 # Write below this comment
 # Functions to deal with students -- dict representation
@@ -51,6 +83,10 @@ following features:
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+# TODO Copy the exact function signatures from previous block and implement
+# them as dict
+
+# 9981, Popescu Ioana, 10 => {"id": "9981","name": "Popescu Ioana","grade": 10}
 
 #
 # Write below this comment
@@ -59,6 +95,15 @@ following features:
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+def add_student(student_list : list, new_student):
+    """
+    Add the new student to the list
+    :param student_list: The list of all students in the program
+    :param new_student: The new guy
+    :return: 0 on success, 1 if duplicate student id
+    """
+    pass
+
 
 #
 # Write below this comment
@@ -66,6 +111,14 @@ following features:
 # Write all functions that have input or print statements here
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
+def start():
+    # TODO What do we need here?
+    # 1. Print main menu
+    # 2. Read user choice -> call appropriate function
+    # 3. Print out any error message
+    # 4. Exit !?
+    pass
+
 
 if __name__ == "__main__":
-    print("Make magic happen")
+    start()
