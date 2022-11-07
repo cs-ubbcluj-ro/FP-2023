@@ -52,19 +52,19 @@ def create_student(id, name: str, grade: int):
     Create a new student
     :return: The new student, or None if any of the fields are empty
     """
-    pass
+    return [id, name, grade]
 
 
 def get_id(student):
-    pass
+    return student[0]
 
 
 def get_name(student):
-    pass
+    return student[1]
 
 
 def get_grade(student):
-    pass
+    return student[2]
 
 
 def to_str(student):
@@ -74,7 +74,7 @@ def to_str(student):
     :return: For student 9981, Popescu Ioana, 10, return
     "id: 9981; name: Popescu Ioana has grade 10"
     """
-    pass
+    return "id: " + str(student[0]) + "; name: " + str(student[1]) + " id: " + str(student[2])
 
 
 #
@@ -112,7 +112,8 @@ def generate_students(count: int):
         count -= 1
     return students
 
-generate_students(5)
+
+# generate_students(5)
 
 def add_student(student_list: list, new_student):
     """
@@ -121,7 +122,19 @@ def add_student(student_list: list, new_student):
     :param new_student: The new guy
     :return: 0 on success, 1 if duplicate student id
     """
-    pass
+    for std in student_list:
+        if get_id(std) == get_id(new_student):
+            return 1
+    student_list.append(new_student)
+    return 0
+
+
+def delete_student(student_list: list, deleted_id: str):
+    for index in range(0, len(student_list)):
+        if get_id(student_list[index]) == deleted_id:
+            student_list.pop(index)
+            return 0
+    return 1
 
 
 #
@@ -130,13 +143,38 @@ def add_student(student_list: list, new_student):
 # Write all functions that have input or print statements here
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
+def print_students(students: list):
+    for s in students:
+        print(to_str(s))
+
+
 def start():
     # TODO What do we need here?
     # 1. Print main menu
     # 2. Read user choice -> call appropriate function
     # 3. Print out any error message
     # 4. Exit !?
-    pass
+    student_list = generate_students(5)
+    # student_list = []
+
+    print("Command options:\n", "1. Add student\n2. Delete student\n0. Exit !?")
+    while True:
+        print_students(student_list)
+        task = input("Input the command:")
+        if task == "1":
+            # TODO We need some more validation, move to a separate function
+            id = input("Id:")
+            name = input("Name:")
+            grade = int(input("Grade:"))
+            add_student(student_list, create_student(id, name, grade))
+        elif task == "2":
+            id = input("id:")
+            if (delete_student(student_list, id) == 1):
+                print("Student not found")
+        elif task == "0":
+            break
+        else:
+            print("Bad command or file name :)")
 
 
 if __name__ == "__main__":
