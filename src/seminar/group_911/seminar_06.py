@@ -49,13 +49,11 @@ import random
 
 # circle centered at (1,2) with radius 3 => [1, 2, 3]
 def new_circle(x, y, radius: int):
-    if x is None or y is None or radius <= 0:
-        return None
     return [x, y, radius]
 
 
 def get_center(circle):
-    return circle[:2]
+    return [circle[0], circle[1]]
 
 
 def get_radius(circle):
@@ -69,7 +67,8 @@ def to_str(circle):
     :return: A string; for circle centered (1,2), radius 4,
     return "circle at (1,2) radius 4"
     """
-    pass
+    return "circle at (" + str(circle[0]) + "," + str(circle[1]) \
+           + ") radius " + str(circle[2])
 
 
 #
@@ -82,6 +81,28 @@ def to_str(circle):
 # TODO Copy function signatures from list representation and implement them
 
 # circle centered at (1,2) with radius 3 => {"x": 1,"y": 2,"radius": 3}
+# def new_circle(x, y, radius: int):
+#     return {"x": x, "y": y, "radius": radius}
+#
+#
+# def get_center(circle):
+#     return circle.pop("radius")
+#
+#
+# def get_radius(circle):
+#     return circle["radius"]
+#
+#
+# def to_str(circle):
+#     """
+#     Return the circle's representation as a string
+#     :param circle: The circle
+#     :return: A string; for circle centered (1,2), radius 4,
+#     return "circle at (1,2) radius 4"
+#     """
+#     return "circle at (" + str(circle["x"]) + "," + str(circle["y"]) \
+#            + ") radius " + str(circle["radius"])
+
 
 #
 # Write below this comment
@@ -112,9 +133,6 @@ def make_random_circles(count: int):
     return circles_list
 
 
-circ = make_random_circles(5)
-
-
 def add_circle(circles_list: list, new_circle):
     """
     Adds the new_circle to the list of circles
@@ -122,11 +140,22 @@ def add_circle(circles_list: list, new_circle):
     :param new_circle: The new circle to add
     :return: 0 on success, 1 if circle with given center already exists
     """
-    for circle in circles_list:
-        if get_center(circle) == get_center(new_circle):
-            return 1
-
+    if new_circle in circles_list:
+        return 1
     circles_list.append(new_circle)
+    return 0
+
+
+def delete_circle(circles_list: list, circle):
+    """
+    Deletes a circle from the list of circles
+    :param circles_list: List of circles maintained by the program
+    :param circle: The circle to delete
+    :return: 0 on success, 1 if the circle does not exist
+    """
+    if circle not in circles_list:
+        return 1
+    circles_list.remove(circle)
     return 0
 
 
@@ -136,25 +165,43 @@ def add_circle(circles_list: list, new_circle):
 # Write all functions that have input or print statements here
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
-def read_circle():
+def read_circle(circles_list: list):
     """
     Reads a circle from the console; Circle center must be int X,Y coordinates,
     radius must be > 0 integer (keep reading until true)
+    :param circles_list: List of circles maintained by the program.
     :return: The new circle.
     """
-    x = int(input("x="))
-    y = int(input("y="))
-    radius = int(input("radius="))
-    # TODO Add validation
-    return new_circle(x, y, radius)
+    while True:
+        print()
+
+        x = input("Enter new X coordinate: ")
+        if not x.lstrip('-').isdigit():
+            print("X must be an integer.")
+            continue
+        x = int(x)
+
+        y = input("Enter new Y coordinate: ")
+        if not y.lstrip('-').isdigit():
+            print("X must be an integer.")
+            continue
+        y = int(y)
+
+        radius = input("Enter radius (type 0 to stop reading...): ")
+        if radius == "0":
+            print("Done reading.")
+            break
+        if not radius.isdigit():
+            print("Radius must be an integer greater than 0!")
+            continue
+        radius = int(radius)
+
+        return new_circle(x, y, radius)
 
 
-def menu(circle_list):
-    print("1. Add new circle")
-    print("2. Delete circle")
-    print("3. Print circles")
-    print("4. Exit")
-    print("Current list: ", circle_list)
+def show_circles(circles_list):
+    sorted_list = sorted(circles_list, key=lambda c: get_radius(c), reverse=True)
+    print("Current list of circles:\n" + ",\n".join(map(to_str, sorted_list)))
 
 
 def start():
@@ -164,19 +211,47 @@ def start():
     # 2. Keep the list of circles
     # 3. Call the function corresponding to user choice
     # 4. Print out error messages coming from functions
-    print("Hello!")
-    print("Initializing program with n circles...")
-    n = int(input("n="))
-    circle_list = make_random_circles(n)
-
+    circles_list = make_random_circles(10)
     while True:
-        menu(circle_list)
-        select = int(input(">"))
-        if select == 1:
-            if add_circle(circle_list, read_circle()) == 1:
-                print("Error. Concentric circles are not allowed.")
-        elif select == 4:
-            break
+        print()
+        print("Welcome to Circle Manager 9000.")
+        print("Please type the number of the operation to execute.")
+        print()
+        print("1. Add a bunch of circles.")
+        print("2. Delete a circle.")
+        print()
+        print("3. Show a list of circles in descending order of radius.")
+        print("4. Show a list of circles which intersect another given circle.")
+        print()
+        print("5. Exit")
+        operation = input()
+        if operation == "1":
+            circle = read_circle(circles_list)
+            exists = add_circle(circles_list, circle)
+            if exists:
+                print("Circle already exists in the list!")
+            else:
+                print("OK")
+        elif operation == "2":
+            circle = read_circle(circles_list)
+            not_exists = delete_circle(circles_list, circle)
+            if not_exists:
+                print("Circle does not exist in the list!")
+            else:
+                print("OK")
+        elif operation == "3":
+            show_circles(circles_list)
+        elif operation == "4":
+            # TODO
+            pass
+        elif operation == "5":
+            print("Goodbye!")
+            return
+        else:
+            print("Unknown operation", operation, "- please try again.")
+        # print()
+        # print("Press Enter to continue...")
+        # input()
 
 
 if __name__ == "__main__":
