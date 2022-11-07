@@ -5,7 +5,8 @@ The application will have a menu-driven user interface and will provide the foll
 
     1. Add a circle
         - adds the given circle to the list.
-        - error if circle with given center already exists, the center or radius not given, empty or radius < 0
+        - error if circle with given center already exists, the center
+        or radius not given, empty or radius < 0
 
     2. Delete a circle
         - deletes the circle with the given center
@@ -32,6 +33,7 @@ The application will have a menu-driven user interface and will provide the foll
         - Don't use global variables!
 """
 
+
 #
 # Write the implementation for Seminar 06 in this file
 #
@@ -44,6 +46,29 @@ The application will have a menu-driven user interface and will provide the foll
 # -> Functions communicate using input parameters and their return values
 #
 
+# circle centered at (1,2) with radius 3 => [1, 2, 3]
+def new_circle(x, y, radius: int):
+    pass
+
+
+def get_center(circle):
+    pass
+
+
+def get_radius(circle):
+    pass
+
+
+def to_str(circle):
+    """
+    Return the circle's representation as a string
+    :param circle: The circle
+    :return: A string; for circle centered (1,2), radius 4,
+    return "circle at (1,2) radius 4"
+    """
+    pass
+
+
 #
 # Write below this comment
 # Functions to deal with circles -- dict representation
@@ -51,6 +76,9 @@ The application will have a menu-driven user interface and will provide the foll
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+# TODO Copy function signatures from list representation and implement them
+
+# circle centered at (1,2) with radius 3 => {"x": 1,"y": 2,"radius": 3}
 
 #
 # Write below this comment
@@ -60,12 +88,40 @@ The application will have a menu-driven user interface and will provide the foll
 # -> Functions communicate using input parameters and their return values
 #
 
+def add_circle(circles_list: list, new_circle):
+    """
+    Adds the new_circle to the list of circles
+    :param circles_list: List of circles maintained by the program
+    :param new_circle: The new circle to add
+    :return: 0 on success, 1 if circle with given center already exists
+    """
+    pass
+
+
 #
 # Write below this comment
 # UI section
 # Write all functions that have input or print statements here
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
+def read_circle():
+    """
+    Reads a circle from the console; Circle center must be int X,Y coordinates,
+    radius must be > 0 integer (keep reading until true)
+    :return: The new circle.
+    """
+    pass
+
+
+def start():
+    # TODO this is the program's entry point
+    # What do to here !!!???
+    # 1. Print out main menu in a loop
+    # 2. Keep the list of circles
+    # 3. Call the function corresponding to user choice
+    # 4. Print out error messages coming from functions
+    pass
+
 
 if __name__ == "__main__":
-    print("Make magic happen")
+    start()
