@@ -73,6 +73,19 @@ def rect_equal(rect1, rect2):
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+# Dumitrana Mihnea dictionary repres.
+def create_rect(x1, y1, x2, y2):
+    # TODO Checks to make sure its an actual rect (not a point, not a line segment)
+    rect = {}
+    rect['low_left'] = (x1, y1)
+    rect['up_right'] = (x2, y2)
+
+    return rect
+
+
+def rect_equal(rect1, rect2: dict):
+    # TODO Make sure that coordinates are in order :)
+    return (rect1['low_left'] == rect2['low_left']) and rect1['up_right'] == rect2['up_right']
 
 
 #
@@ -97,10 +110,33 @@ def gen_rectangles(count: int):
                 rect_ok_flag = False
                 break
         if rect_ok_flag:
-            result.append()
+            result.append(new_rect)
             count -= 1
 
     return result
+
+
+# rects = gen_rectangles(5)
+# print(rects)
+
+def addRectangle(rectangles: list, new_rect):
+    """
+    :param rectangles: list
+    :param x1,x2,y1,y2: int
+    :return:
+        None if rectangle already exists or is invalid
+        updated list if rectangle is ok
+    """
+    # newRectangle = [x1, y1, x2, y2]
+    newRectangle = create_rect()
+    # if x1 > x2 or y1 > y2:
+    #     return None
+    for rectangle in rectangles:
+        if rect_equal(rectangle, newRectangle):
+            return None
+
+    rectangles.append(newRectangle)
+    return rectangles
 
 
 #
@@ -109,6 +145,38 @@ def gen_rectangles(count: int):
 # Write all functions that have input or print statements here
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
+def read_rect_ui():
+    pass
+
+
+def add_rectangle_ui():
+    pass
+
+
+def start_menu():
+    opt = 0
+    rectangles = []
+    while True:
+        print("1. Add a rectangle:\n",
+              "2. Delete a rectangle:\n",
+              "3. Show all rectangles:\n",
+              "4. Show rectangles that intersect a given one:\n",
+              "5. exit\n")
+        opt = input('>')
+        if opt == "1":
+            add_rectangle_ui()
+        elif opt == "2":
+            pass
+        elif opt == "3":
+            pass
+        elif opt == "4":
+            pass
+        elif opt == "5":
+            return
+        else:
+            print("Choose a valid option")
+        # Dumitrescu David
+
 
 if __name__ == "__main__":
-    print("Let's go!")
+    start_menu()
