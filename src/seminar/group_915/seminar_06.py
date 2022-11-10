@@ -30,6 +30,8 @@ The application will have a menu-driven user interface and will provide the foll
         - Try to reuse functions across functionalities (Less code to write and test)
         - Don't use global variables!
 """
+import random
+
 
 #
 # Write the implementation for Seminar 06 in this file
@@ -42,6 +44,18 @@ The application will have a menu-driven user interface and will provide the foll
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+def create_rect(x1, y1, x2, y2: int):
+    pass
+
+
+def equal_rect(rect1, rect2):
+    """
+    Return True if rect1 and rect2 have he same corners, False otherwise
+    :param rect1:
+    :param rect2:
+    :return:
+    """
+    pass
 
 
 #
@@ -60,7 +74,28 @@ The application will have a menu-driven user interface and will provide the foll
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+def generate_rectangles(count: int):
+    rectangles = []
 
+    while count > 0:
+        x1 = random.randint(-20, 20)
+        y1 = random.randint(-20, 20)
+        x2 = x1 + random.randint(1, 10)
+        y2 = y1 + random.randint(1, 10)
+        new_rect = create_rect(x1, x2, y1, y2)
+
+        # Check for overlapping rectangles
+        flag = True
+        for rect in rectangles:
+            if equal_rect(rect, new_rect) is True:
+                flag = False
+        if flag:
+            rectangles.append(new_rect)
+            count -= 1
+    return rectangles
+
+
+print(generate_rectangles(5))
 
 #
 # Write below this comment
