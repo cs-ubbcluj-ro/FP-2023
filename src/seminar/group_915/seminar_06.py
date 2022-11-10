@@ -30,8 +30,8 @@ The application will have a menu-driven user interface and will provide the foll
         - Try to reuse functions across functionalities (Less code to write and test)
         - Don't use global variables!
 """
+import os
 import random
-
 
 #
 # Write the implementation for Seminar 06 in this file
@@ -44,18 +44,46 @@ import random
 # -> Each function should do one thing only
 # -> Functions communicate using input parameters and their return values
 #
+import time
+
+
 def create_rect(x1, y1, x2, y2: int):
-    pass
+    """
+        This function creates a rectangle using the coordinates of two opposing corners.
+
+    Args:
+        x1 (_type_): _description_
+        y1 (_type_): _description_
+        x2 (_type_): _description_
+        y2 (_type_): _description_
+    """
+    if x1 == x2 or y1 == y2:
+        # A point or line is not a valid rectangle
+        return None
+
+    # bottom-left rectangle corner
+    bl = (min(x1, x2), min(y1, y2))
+    # top right rectangle corner
+    tr = (max(x1, x2), max(y1, y2))
+    return [bl, tr]
+
+
+def get_tr_corner(rect):
+    return rect[1]
+
+
+def get_bl_corner(rect):
+    return rect[0]
 
 
 def equal_rect(rect1, rect2):
-    """
-    Return True if rect1 and rect2 have he same corners, False otherwise
-    :param rect1:
-    :param rect2:
-    :return:
-    """
-    pass
+    return rect1 == rect2
+    # return not (get_tr_corner(rect1) != get_tr_corner(rect2) or get_bl_corner(rect1) != get_bl_corner(rect2))
+
+
+# Moga Denis Andrei
+def to_string(rectangle):
+    return f"Bottom left corner: {get_bl_corner(rectangle)} -- Top right corner: {get_tr_corner(rectangle)}"
 
 
 #
@@ -82,7 +110,7 @@ def generate_rectangles(count: int):
         y1 = random.randint(-20, 20)
         x2 = x1 + random.randint(1, 10)
         y2 = y1 + random.randint(1, 10)
-        new_rect = create_rect(x1, x2, y1, y2)
+        new_rect = create_rect(x1, y1, x2, y2)
 
         # Check for overlapping rectangles
         flag = True
@@ -95,7 +123,10 @@ def generate_rectangles(count: int):
     return rectangles
 
 
-print(generate_rectangles(5))
+list = generate_rectangles(5)
+for rect in list:
+    print(to_string(rect))
+
 
 #
 # Write below this comment
@@ -104,5 +135,56 @@ print(generate_rectangles(5))
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
 
-if __name__ == "__main__":
-    print("Let's go!")
+# Oniga Andrei Mihai
+def clearScreen():
+    if os.name == "nt":
+        os.system('cls')
+    else:
+        os.system('clear')
+
+
+def errorMessage(message):
+    # clearScreen()
+    print(f"\n{message}\nGoing back to where you were before...")
+    # time.sleep(2)
+
+
+def readNumber(message):
+    try:
+        val = int(input(message))
+        return val
+    except:
+        errorMessage("A number is expected.")
+        return 0
+
+
+def printMainMenu():
+    print("Mein Menu:")
+    print(" 1. Add a rectangle to the list.")
+    print(" 2. Delete a rectangle from the list.")
+    print(" 3. Show all current rectangles.")
+    print(" 4. Select a rectangle to check intersections.")
+    print(" 5. Exit.\n")
+
+
+def main():
+    while True:
+        # clearScreen()
+        printMainMenu()
+        choice = readNumber("Action: ")
+        if choice == 1:
+            errorMessage("TODO: implement addition")
+        elif choice == 2:
+            errorMessage("TODO: implement deletion")
+        elif choice == 3:
+            errorMessage("TODO: implement showing")
+        elif choice == 4:
+            errorMessage("TODO: implement intersections")
+        elif choice == 5:
+            break
+        else:
+            errorMessage("Unknown choice!")
+
+
+if __name__ == '__main__':
+    main()
