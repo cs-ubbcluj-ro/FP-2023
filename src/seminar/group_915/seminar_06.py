@@ -81,9 +81,25 @@ def equal_rect(rect1, rect2):
     # return not (get_tr_corner(rect1) != get_tr_corner(rect2) or get_bl_corner(rect1) != get_bl_corner(rect2))
 
 
+def area(rectangle):
+    return abs(get_tr_corner(rectangle)[0] - get_bl_corner(rectangle)[0]) * (
+            get_tr_corner(rectangle)[1] - get_bl_corner(rectangle)[1])
+
+
+def intersect(rect1, rect2):
+    """
+    Return True if and only if the rectangles intersect
+    :param rect1: First rectangle
+    :param rect2: Second rectangle
+    :return:
+    """
+    # FIXME Replace mock implementation with the real one
+    return True
+
+
 # Moga Denis Andrei
 def to_string(rectangle):
-    return f"Bottom left corner: {get_bl_corner(rectangle)} -- Top right corner: {get_tr_corner(rectangle)}"
+    return f"Bottom left corner: {get_bl_corner(rectangle)} -- Top right corner: {get_tr_corner(rectangle)}, area is {area(rectangle)}"
 
 
 #
@@ -123,9 +139,37 @@ def generate_rectangles(count: int):
     return rectangles
 
 
-list = generate_rectangles(5)
-for rect in list:
-    print(to_string(rect))
+# list = generate_rectangles(5)
+# for rect in list:
+#     print(to_string(rect))
+
+
+# Moga Denis-Andrei
+def check_if_rectangle_exists(rectangle_to_check, list_of_rectangles):
+    """
+
+    Args:
+        rectangle_to_check (List of tuples): The first rectangle represented as a list with two tuples.
+        list_of_rectangles (List of lists): List of lists containing rectangles.
+
+    Returns:
+        Boolean value: True if the rectangle already exists, False otherwise.
+    """
+    for rectangle in list_of_rectangles:
+        if equal_rect(rectangle_to_check, rectangle):
+            return True
+
+    return False
+
+
+def add_rectangle_to_list(rectangle, list_of_rectangles):
+    if not check_if_rectangle_exists(rectangle, list_of_rectangles):
+        # If the rectangle is unique, add it to the list.
+        list_of_rectangles.append(rectangle)
+        return "ok"
+
+    # Return None if that rectangle already exists in the list.
+    return None
 
 
 #
@@ -134,6 +178,22 @@ for rect in list:
 # Write all functions that have input or print statements here
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
+
+def read_number(message):
+    number = input(message)
+    while not number.isnumeric():
+        print("Invalid input! Please enter an integer.")
+        number = input(message)
+    return int(number)
+
+
+def read_rectangle():
+    x1 = read_number("x1 = ")
+    y1 = read_number("y1 = ")
+    x2 = read_number("x2 = ")
+    y2 = read_number("y2 = ")
+    return create_rect(x1, y1, x2, y2)
+
 
 # Oniga Andrei Mihai
 def clearScreen():
@@ -158,6 +218,42 @@ def readNumber(message):
         return 0
 
 
+def print_rectangles(rectangles: list):
+    for rect in rectangles:
+        print(to_string(rect))
+
+
+def select_rectangle(rectangles):
+    """
+    User selection of one rectangle
+    :param rectangles:
+    :return:
+    """
+    index = 1
+    for rect in rectangles:
+        print(str(index) + " -> " + to_string(rect))
+        index += 1
+    selection = read_number("Select rectangle index: ")
+    # FIXME Handle case where selection is not a valid index
+    return rectangles[selection - 1]
+
+
+def rect_intersection_ui(rectangles: list):
+    # Select a rectangle using the UI
+    selected_rect = select_rectangle(rectangles)
+    print("Selected rectangle -- " + to_string(selected_rect))
+
+    # Determine intersecting rects
+    intersected_rects = []
+    for rect in rectangles:
+        if intersect(selected_rect, rect) and rect != selected_rect:
+            intersected_rects.append(rect)
+    # Sort intersected rects by area
+    intersected_rects.sort(reverse=True, key=area)
+    # Prints them out sorted desc by area
+    print_rectangles(intersected_rects)
+
+
 def printMainMenu():
     print("Mein Menu:")
     print(" 1. Add a rectangle to the list.")
@@ -168,18 +264,28 @@ def printMainMenu():
 
 
 def main():
+    # rectangles = []
+    rectangles = generate_rectangles(10)
+
     while True:
         # clearScreen()
+        # print_rectangles(rectangles)
         printMainMenu()
         choice = readNumber("Action: ")
         if choice == 1:
-            errorMessage("TODO: implement addition")
+            new_rect = read_rectangle()
+            if new_rect is None:
+                print("Invalid rectangle (a point or a line are not valid rectangles)")
+            else:
+                if add_rectangle_to_list(new_rect, rectangles) is None:
+                    print("Duplicate rectangle. Cannot be added.")
         elif choice == 2:
             errorMessage("TODO: implement deletion")
         elif choice == 3:
-            errorMessage("TODO: implement showing")
+            rectangles.sort(reverse=True, key=area)
+            print_rectangles(rectangles)
         elif choice == 4:
-            errorMessage("TODO: implement intersections")
+            rect_intersection_ui(rectangles)
         elif choice == 5:
             break
         else:

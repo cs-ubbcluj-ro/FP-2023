@@ -115,17 +115,17 @@ def generate_students(count: int):
 
 # generate_students(5)
 
-def add_student(student_list: list, new_student):
+def add_student(list_of_students: list, new_student):
     """
     Add the new student to the list
-    :param student_list: The list of all students in the program
+    :param list_of_students: The list of all students in the program
     :param new_student: The new guy
     :return: 0 on success, 1 if duplicate student id
     """
-    for std in student_list:
+    for std in list_of_students:
         if get_id(std) == get_id(new_student):
             return 1
-    student_list.append(new_student)
+    list_of_students.append(new_student)
     return 0
 
 
@@ -137,6 +137,17 @@ def delete_student(student_list: list, deleted_id: str):
     return 1
 
 
+def sort_by_grade(student_list):
+    n = len(student_list)
+    ok = True
+    while ok is True:
+        ok = False
+        for i in range(0, n - 1):
+            if get_grade(student_list[i]) < get_grade(student_list[i + 1]):
+                ok = True
+                student_list[i], student_list[i + 1] = student_list[i + 1], student_list[i]
+
+
 #
 # Write below this comment
 # UI section
@@ -144,8 +155,22 @@ def delete_student(student_list: list, deleted_id: str):
 # Ideally, this section should not contain any calculations relevant to program functionalities
 #
 def print_students(students: list):
+    print("\nAll students:")
     for s in students:
         print(to_str(s))
+
+
+def show_good_grades(student_list: list, grade: int):
+    good_grade_students = []
+    for student in student_list:
+        if get_grade(student) > grade:
+            add_student(good_grade_students, student)
+
+    good_grade_students.sort(key=lambda x: x[2], reverse=True)
+
+    # sort_by_grade(good_grade_students)
+
+    return good_grade_students
 
 
 def start():
@@ -154,10 +179,10 @@ def start():
     # 2. Read user choice -> call appropriate function
     # 3. Print out any error message
     # 4. Exit !?
-    student_list = generate_students(5)
+    student_list = generate_students(10)
     # student_list = []
 
-    print("Command options:\n", "1. Add student\n2. Delete student\n0. Exit !?")
+    print("Command options:\n", "1. Add student\n2. Delete student\n4. Print student filtered by grade\n0. Exit !?")
     while True:
         print_students(student_list)
         task = input("Input the command:")
@@ -166,11 +191,17 @@ def start():
             id = input("Id:")
             name = input("Name:")
             grade = int(input("Grade:"))
-            add_student(student_list, create_student(id, name, grade))
+            # add_student(student_list, create_student(id, name, grade))
+            add_student(new_student=create_student(id, name, grade), list_of_students=student_list)
+
         elif task == "2":
             id = input("id:")
             if (delete_student(student_list, id) == 1):
                 print("Student not found")
+        elif task == "4":
+            grade = int(input("grade:"))
+            for student in show_good_grades(student_list, grade):
+                print(to_str(student))
         elif task == "0":
             break
         else:
