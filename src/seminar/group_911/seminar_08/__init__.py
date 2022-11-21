@@ -25,4 +25,10 @@ Turning seminar 7 game into object-oriented representation
     f. rewrote test_board to work with class
 
 2. Let's do the same to the game module
+    a. Create the game class and add the board as a constructor parameter
+    b. Add the *_move methods into the class
+    c. Update them to use the private __board attribute
+
+3. Update the UI module
+4. Added the skynet_level_2 random move strategy :)
 """
