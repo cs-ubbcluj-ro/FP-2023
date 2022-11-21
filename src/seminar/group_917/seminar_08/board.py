@@ -1,4 +1,4 @@
-class board:
+class game_board:
     """
     C++ constructor:
         public:
@@ -31,6 +31,24 @@ class board:
         if row not in [0, 1, 2] or col not in [0, 1, 2]:
             raise ValueError("Outside board")
         return self.__game_board[row][col]
+
+    def is_won(self):
+        # check rows
+        for row in [0, 1, 2]:
+            if self.__game_board[row][0] is not None and len(set(self.__game_board[row])) == 1:
+                return True
+        # check columns
+        gb = self.__game_board
+        for col in [0, 1, 2]:
+            if gb[0][col] is not None and gb[0][col] == gb[1][col] == gb[2][col]:
+                return True
+        # diagonals, center square must be filled in to win diagonally
+        if gb[1][1] is not None:
+            if gb[0][0] == gb[1][1] == gb[2][2]:
+                return True
+            if gb[2][0] == gb[1][1] == gb[0][2]:
+                return True
+        return False
 
     def update(self, symbol, row, col):
         """
@@ -75,28 +93,28 @@ class board:
 
 
 def test_board():
-    game_board = board()
+    board = game_board()
     # Check that board is empty
     for i in range(3):
         for j in range(3):
-            assert game_board.get(i, j) is None
+            assert board.get(i, j) is None
 
     # Make some moves on the board
-    game_board.update('X', 1, 1)
-    assert game_board.get(1, 1) == 'X'
-    game_board.update('O', 0, 0)
-    assert game_board.get(0, 0) == 'O'
+    board.update('X', 1, 1)
+    assert board.get(1, 1) == 'X'
+    board.update('O', 0, 0)
+    assert board.get(0, 0) == 'O'
 
     # Make sure we can't overwrite symbols
     try:
-        game_board.update('X', 1, 1)
+        board.update('X', 1, 1)
         assert False
     except ValueError:
         assert True
 
     # Make sure you can't move outside the board
     try:
-        game_board.update('X', 3, 1)
+        board.update('X', 3, 1)
         assert False
     except ValueError:
         assert True
