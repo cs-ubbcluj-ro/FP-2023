@@ -16,9 +16,13 @@ Turning seminar 7 game into object-oriented representation
         _<var. name> -> private (convention)
         __<var. name> -> private (convention!?, name mangling)
 
+    a. Created the game_board class
+    b. changed create_board to __init__
+    c. changed str_board to __str__
+    d. added remaining methods to class
+    e. shortened their names as it makes more sense
+        (e.g., make_move_on_board -> move)
+    f. rewrote test_board to work with class
 
-
-
-
-
+2. Let's do the same to the game module
 """

@@ -1,30 +1,3 @@
-# def test_board():
-#     board = create_board()
-#     # Check that the board is empty
-#     for i in range(3):
-#         for j in range(3):
-#             assert get_position_on_board(board, i, j) is None
-#     # Make some moves on the board
-#     make_move_on_board(board, 'X', 1, 1)
-#     assert get_position_on_board(board, 1, 1) == 'X'
-#
-#     make_move_on_board(board, 'O', 0, 0)
-#     assert get_position_on_board(board, 0, 0) == 'O'
-#
-#     # Check that moving outside of board raises a ValueError
-#     try:
-#         make_move_on_board(board, 'X', 3, 3)
-#         assert False
-#     except ValueError:
-#         assert True
-#
-#     # Check that we cannot overwrite a square
-#     try:
-#         make_move_on_board(board, 'O', 0, 0)
-#         assert False
-#     except ValueError:
-#         assert True
-
 class game_board:
     def __init__(self):
         """
@@ -41,8 +14,8 @@ class game_board:
         # The interpreter returns the object reference in __init__
         # return board
 
-    def str_position(self, row, col):
-        symbol = self.get_position_on_board(row, col)
+    def __str_position(self, row, col):
+        symbol = self.get_position(row, col)
 
         # This is <=> to what is below
         # return ' ' if symbol is None else symbol
@@ -51,7 +24,7 @@ class game_board:
         else:
             return ' '
 
-    def get_position_on_board(self, row, col: int):
+    def get_position(self, row, col: int):
         """
         Return the symbol at (row,col)
         :param row:
@@ -63,7 +36,7 @@ class game_board:
             raise ValueError("Position not on board - (" + str(row) + "," + str(col) + ")")
         return self.__board[row][col]
 
-    def make_move_on_board(self, symbol, row, column):
+    def move(self, symbol, row, column):
         """
         Represent a move on the board
         :param board: The game board
@@ -77,7 +50,7 @@ class game_board:
             raise ValueError("Invalid symbol")
         if row not in [0, 1, 2] or column not in [0, 1, 2]:
             raise ValueError("Move outside board")
-        if self.get_position_on_board(row, column) is not None:
+        if self.get_position(row, column) is not None:
             raise ValueError("Cannot overwrite board at (" + str(row) + "," + str(column) + ")")
         # This works as a setter function
         self.__board[row][column] = symbol
@@ -88,7 +61,7 @@ class game_board:
         :param board: The game board
         :return: In str form
         """
-        gp = self.str_position
+        gp = self.__str_position
         result = "-----\n"
         for i in range(3):
             result += gp(i, 0) + "|" + gp(i, 1) + "|" + gp(i, 2) + "\n"
@@ -96,18 +69,45 @@ class game_board:
         return result
 
 
-# gb = game_board()
+def test_board():
+    board = game_board()
+    # Check that the board is empty
+    for i in range(3):
+        for j in range(3):
+            assert board.get_position(i, j) is None
+    # Make some moves on the board
+    board.move('X', 1, 1)
+    assert board.get_position(1, 1) == 'X'
 
+    board.move('O', 0, 0)
+    assert board.get_position(0, 0) == 'O'
+
+    # Check that moving outside of board raises a ValueError
+    try:
+        board.move('X', 3, 3)
+        assert False
+    except ValueError:
+        assert True
+
+    # Check that we cannot overwrite a square
+    try:
+        board.move('O', 0, 0)
+        assert False
+    except ValueError:
+        assert True
+
+
+gb = game_board()
 
 # data = list()  # []
 # data.append(1)
 # list.append(data, 1)
 # print(str(data))
 
-gb = game_board()
+# gb = game_board()
 # print(game_board.str_board(gb))  # gb is self from str_board
 # print(gb.str_board())  # gb is passed as self implicitely by the interpreter
-print(str(gb))  # how do we tell the interpreter what to call here?
+# print(str(gb))  # how do we tell the interpreter what to call here?
 
 # gb.__board[1][1] = '1234'
 # print(gb.__dict__)
