@@ -20,6 +20,25 @@ class car:
     def car_id(self, new_value):
         self.__car_id = new_value
 
+    @property
+    def make(self):
+        return self.__make
+
+    @property
+    def model(self):
+        return self.__model
+
+    @property
+    def color(self):
+        return self.__color
+
+    @color.setter
+    def color(self, new_value):
+        self.__color = new_value
+
+    def __str__(self):
+        return self.car_id + " -> " + self.make + " " + self.model + ", " + self.color
+
 
 def test_car():
     new_car = car("CJ 01 ABC", "Dacia", "Sandero", "red")
