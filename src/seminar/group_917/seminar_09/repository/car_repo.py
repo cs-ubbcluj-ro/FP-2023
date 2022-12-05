@@ -64,7 +64,25 @@ class car_repo_text_file(car_repo):
         pass
 
 
-repo = car_repo_text_file("../cars.txt")
+def generate_cars(n: int):
+    """
+    function to generate n car instances
+    :param n: nr. of cars
+    :return: A list of n car instances
+    """
+    # TODO to implement
+    # (1) -> choose a random make from a predefined list (Dacia, VW, Toyota, Audi)
+    # (2) -> each make has a few predefined models
+    #     -> dict where keys are makes and e ach key has a list of models
+    # (3) -> choose a random color from a predefined list
+    # (4) -> choose a random county from a predefined list
+    #     -> choose a random number between 1 and 99
+    #     -> generate a random 3-char str
+    #     -> A has ASCII code 65, chr(65) -> 'A'
+    # (5) call the car constructor -> add car to list -> return the list of cars
+    pass
+
+# repo = car_repo_text_file("../cars.txt")
 
 #
 # def test_car_repo():
