@@ -8,7 +8,7 @@ class RepoException(Exception):
     pass
 
 
-class car_repo:
+class car_repo(object):
     def __init__(self):
         # keys are car license numbers, values are car objects
         self.__data = {}
@@ -26,8 +26,64 @@ class car_repo:
         except KeyError:
             raise RepoException("Car is not in repo")
 
+    def get_all(self):
+        return self.__data.values()
+
     def __len__(self):
         return len(self.__data)
+
+
+# just a plain old regular class :)
+class car_repo_text_file(car_repo):
+    # this class inherits from car_repo
+    # => has all the mathods and attributes in car_repo
+
+    def __init__(self, file_name="cars.txt"):
+        # call superclass constructor
+        super(car_repo_text_file, self).__init__()
+        # remember the name of the file we're working with
+        self._file_name = file_name
+        # load the cars from the file
+        self._load_file()
+
+    def _load_file(self):
+        """
+        Load the cars from a text file
+        """
+        # open a text file for reading
+        # t - text file mode, r - reading
+        fin = open(self._file_name, "rt")
+        # each car should be on its own line
+        lines = fin.readlines()
+        # close the file when done reading
+        fin.close()
+
+        # TODO (1) loop over the lines read, each line is a car,
+        # TOTO (2) call Car constructor with the given fields
+        # TODO (3) call super().add() with the created Car instance
+
+    def _save_file(self):
+        """
+        Save all cars to a text file
+        """
+        # open a text file for writing
+        # t - text file mode, w - writing (rewrite the file every time)
+        fout = open(self._file_name, "wt")
+
+        # TODO (1) loop over all cars, (2) save each car to file using write()
+        # TODO (3) use commas to separate car field (CSV - comma-separated value file)
+        # writes car_string into the text file
+        # fout.write(car_string)
+
+        # call close when done writing
+        # fout.close()
+
+    def add(self, new_car: car):
+        # call the add() method on the super class
+        # we want to do everything the superclass add() already does
+        super().add(new_car)
+        # we also want to save all cars to a text file
+        self._save_file()
 
 
 #
@@ -87,6 +143,16 @@ def generate_cars(n: int):
     return result
 
 
-cars = generate_cars(10)
-for c in cars:
-    print(str(c))
+if __name__ == "__main__":
+    # repo = car_repo()
+    repo_text = car_repo_text_file()
+    # NOTE Save the generated cars to the file
+    for c in generate_cars(10):
+        print(str(c))
+        # repo.add(c)
+        repo_text.add(c)
+
+    # NOTE Load the cars and display them again
+    new_car_repo = car_repo_text_file()
+    for c in new_car_repo.get_all():
+        print(str(c))
