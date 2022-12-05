@@ -1,5 +1,6 @@
 from seminar.group_911.seminar_09.domain.car import car
 from random import choice, randint
+import pickle
 
 
 # RepoException inherits from Python's builtin Exception class
@@ -11,26 +12,59 @@ class RepoException(Exception):
 class car_repo(object):
     def __init__(self):
         # keys are car license numbers, values are car objects
-        self.__data = {}
+        self._data = {}
 
     def add(self, new_car: car):
-        if new_car.car_id in self.__data:
+        if new_car.car_id in self._data:
             raise RepoException("Car already in repo")
-        self.__data[new_car.car_id] = new_car
+        self._data[new_car.car_id] = new_car
 
     def get(self, car_id: str):
         # If car cannot be found in repo, catch the dict's KeyError and
         # re-raise it as RepoException
         try:
-            return self.__data[car_id]
+            return self._data[car_id]
         except KeyError:
             raise RepoException("Car is not in repo")
 
     def get_all(self):
-        return self.__data.values()
+        return list(self._data.values())
 
     def __len__(self):
-        return len(self.__data)
+        return len(self._data)
+
+
+class car_repo_bin_file(car_repo):
+    def __init__(self, file_name="cars.bin"):
+        # call superclass constructor
+        super(car_repo_bin_file, self).__init__()
+        # remember the name of the file we're working with
+        self._file_name = file_name
+        # load the cars from the file
+        self._load_file()
+
+    def add(self, new_car: car):
+        # call the add() method on the super class
+        # we want to do everything the superclass add() already does
+        super().add(new_car)
+        # we also want to save all cars to a text file
+        self._save_file()
+
+    def _load_file(self):
+        # r - read, b - binary
+        fin = open(self._file_name, "rb")
+        obj = pickle.load(fin)
+
+        for c in obj:
+            super().add(c)
+        fin.close()
+
+    def _save_file(self):
+        # w - write mode (overwrite), b - binary mode
+        fout = open(self._file_name, "wb")
+        pickle.dump(self.get_all(), fout)
+        # NOTE Don't forget to close the file!
+        fout.close()
 
 
 # just a plain old regular class :)
@@ -156,7 +190,19 @@ if __name__ == "__main__":
     #     # repo.add(c)
     #     repo_text.add(c)
 
-    # NOTE Load the cars and display them again
-    new_car_repo = car_repo_text_file()
-    for c in new_car_repo.get_all():
+    # read the cars.bin input file
+    car_repo_bin = car_repo_bin_file()
+    print("Cars saved in cars.bin")
+    for c in car_repo_bin.get_all():
         print(str(c))
+
+    # read the cars.txt file
+    car_repo_text = car_repo_text_file()
+    print("\n\nCars saved in cars.txt")
+    for c in car_repo_text.get_all():
+        print(str(c))
+
+    # NOTE Load the cars and display them again
+    # new_car_repo = car_repo_text_file()
+    # for c in new_car_repo.get_all():
+    #     print(str(c))
