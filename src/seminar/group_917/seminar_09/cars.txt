@@ -1,2 +1,0 @@
-CJ 01 ABC,VW,Polo,black
-VS 98 ERT,Dacia,Sandero,blue

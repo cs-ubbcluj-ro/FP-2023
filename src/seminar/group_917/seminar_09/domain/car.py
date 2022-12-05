@@ -37,6 +37,9 @@ class car:
     def color(self, new_color):
         self.__color = new_color
 
+    def __repr__(self):
+        return str(self)
+
     def __str__(self):
         return self.car_id + " -> " + self.make + " " + self.model + ", " + self.color
 

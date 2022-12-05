@@ -1,0 +1,20 @@
+CT 87 ABB,Audi,A4 Sedan,green
+B 60 KHM,Dacia,Sandero,beige
+IS 89 BXE,Dacia,Logan,beige
+CT 95 BYO,Toyota,Corolla,black
+CJ 81 BRX,VW,Arteon,black
+IF 47 WJF,Audi,A3,white
+BH 53 STA,Toyota,Corolla,green
+B 46 YPT,Toyota,Corolla,blue
+CT 93 MKP,Dacia,Logan,green
+SV 30 TEF,VW,Arteon,metallic
+SV 47 YFW,Toyota,Prius,white
+CJ 63 CTU,Dacia,Spring,metallic
+MM 97 XBC,Dacia,Logan,red
+MM 69 FMZ,Toyota,Corolla,beige
+BH 44 OOW,Dacia,Spring,red
+IS 93 JSP,Audi,A4 Sedan,metallic
+CT 38 EUQ,Audi,A4 Sedan,beige
+BT 98 STB,VW,Passat,metallic
+MM 63 XVS,VW,Polo,black
+CT 26 WGC,Audi,Q5,red
