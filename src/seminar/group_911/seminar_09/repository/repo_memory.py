@@ -58,9 +58,12 @@ class car_repo_text_file(car_repo):
         # close the file when done reading
         fin.close()
 
-        # TODO (1) loop over the lines read, each line is a car,
-        # TOTO (2) call Car constructor with the given fields
-        # TODO (3) call super().add() with the created Car instance
+        for line in lines:
+            current_line = line.split(",")
+            new_car = car(current_line[0].strip(), current_line[1].strip(), current_line[2].strip(),
+                          current_line[3].strip())
+            # NOTE call super() so that we don't write the file we're reading from
+            super().add(new_car)
 
     def _save_file(self):
         """
@@ -70,13 +73,14 @@ class car_repo_text_file(car_repo):
         # t - text file mode, w - writing (rewrite the file every time)
         fout = open(self._file_name, "wt")
 
-        # TODO (1) loop over all cars, (2) save each car to file using write()
-        # TODO (3) use commas to separate car field (CSV - comma-separated value file)
         # writes car_string into the text file
         # fout.write(car_string)
+        for car in self.get_all():
+            car_string = str(car.car_id) + "," + str(car.make) + "," + str(car.model) + "," + str(car.color) + "\n"
+            fout.write(car_string)
 
         # call close when done writing
-        # fout.close()
+        fout.close()
 
     def add(self, new_car: car):
         # call the add() method on the super class
@@ -145,12 +149,12 @@ def generate_cars(n: int):
 
 if __name__ == "__main__":
     # repo = car_repo()
-    repo_text = car_repo_text_file()
-    # NOTE Save the generated cars to the file
-    for c in generate_cars(10):
-        print(str(c))
-        # repo.add(c)
-        repo_text.add(c)
+    # repo_text = car_repo_text_file()
+    # # NOTE Save the generated cars to the file
+    # for c in generate_cars(10):
+    #     print(str(c))
+    #     # repo.add(c)
+    #     repo_text.add(c)
 
     # NOTE Load the cars and display them again
     new_car_repo = car_repo_text_file()
