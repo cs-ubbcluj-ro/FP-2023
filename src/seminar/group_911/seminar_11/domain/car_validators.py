@@ -1,4 +1,3 @@
-from seminar.group_911.seminar_09.domain.car import car
 from seminar.group_911.seminar_11.domain.exceptions import CarValidationException
 
 

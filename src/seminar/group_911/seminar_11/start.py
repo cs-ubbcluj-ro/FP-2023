@@ -27,8 +27,8 @@ The application must allow its users to manage clients, cars and rentals in the 
 
     The application must have support for unlimited undo/redo with cascading.
 """
-from seminar.group_911.seminar_09.domain.car import car
-from seminar.group_911.seminar_09.repository.repo_memory import car_repo_text_file, generate_cars
+from seminar.group_911.seminar_11.domain.car import car
+from seminar.group_911.seminar_11.repository.car_repo import car_repo_text_file
 
 car_repo = car_repo_text_file()
 # for car in generate_cars(20):
