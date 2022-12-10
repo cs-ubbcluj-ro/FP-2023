@@ -59,3 +59,18 @@ The application must allow its users to manage clients, cars and rentals in the 
     - cars are loaded from file when the constructor is called
     - cars are saved after every operation
 """
+
+# _load_file
+# r - read, t - text
+fin = open(file_name, "rt")
+# read all the lines in the file into a list
+# each car should be represented on its own line
+list_of_lines = fin.readlines()
+# split lines by "," -> add them to repo
+
+# _save_file
+fout = open(file_name, "wt")
+# turn each Car object into a one-line string -> CJ 01 ABC, Toyota, Yaris, red
+# in a for loop :)
+fout.write(car_as_string)
+fout.close()

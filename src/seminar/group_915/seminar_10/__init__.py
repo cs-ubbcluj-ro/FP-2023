@@ -60,3 +60,57 @@ The application must allow its users to manage clients, cars and rentals in the 
         -> _load_file - loads text file of cars into repo
         -> _save_file - saves cars into the text file
 """
+
+
+class Car:
+    def __init__(self, license_plate: str, make: str, model: str, color: str):
+        self.__license_plate = license_plate
+        self.make = make
+        self.model = model
+        self.color = color
+
+    @property
+    def license_plate(self):
+        return self.__license_plate
+
+    @property
+    def make(self):
+        return self.__car_make
+
+    @make.setter
+    def make(self, new_make):
+        self.__car_make = new_make
+
+    @property
+    def model(self):
+        return self.__car_model
+
+    @model.setter
+    def model(self, new_car_model):
+        self.__car_model = new_car_model
+
+    @property
+    def color(self):
+        return self.__car_color
+
+    @color.setter
+    def color(self, new_car_color):
+        self.__car_color = new_car_color
+
+    def __repr__(self):
+        """
+        str representation of this object
+        """
+        return str(self)
+
+    def __str__(self):
+        return f'Car: {self.__license_plate}, {self.make}, {self.model}, {self.color}'
+
+
+if __name__ == "__main__":
+    car = Car("CJ 99 ERT", "Mazda", "CX-30", "blue")
+
+    print(car)
+    car.make = "Toyota"
+    car.color = "white"
+    print(car)
