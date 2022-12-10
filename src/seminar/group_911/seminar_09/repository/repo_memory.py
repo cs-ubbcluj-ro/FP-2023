@@ -86,11 +86,17 @@ class car_repo_text_file(car_repo):
         """
         # open a text file for reading
         # t - text file mode, r - reading
-        fin = open(self._file_name, "rt")
-        # each car should be on its own line
-        lines = fin.readlines()
-        # close the file when done reading
-        fin.close()
+        lines = []
+
+        try:
+            fin = open(self._file_name, "rt")
+            # each car should be on its own line
+            lines = fin.readlines()
+            # close the file when done reading
+            fin.close()
+        except IOError:
+            # It's ok if we don't find the input file
+            pass
 
         for line in lines:
             current_line = line.split(",")
