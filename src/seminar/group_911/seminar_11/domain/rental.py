@@ -1,8 +1,11 @@
 from datetime import date
 
+from seminar.group_911.seminar_11.domain.car import Car
+from seminar.group_911.seminar_11.domain.client import Client
+
 
 class Rental:
-    def __init__(self, rental_id, start, end, client, car):
+    def __init__(self, rental_id: int, start: date, end: date, client: Client, car: Car):
         self._rentalId = rental_id
         self._client = client
         self._car = car
@@ -58,3 +61,14 @@ class Rental:
     def __str__(self):
         return "Rental: " + str(self.id) + "\nCar: " + str(self.car) + "\nClient: " + str(
             self.client) + "\nPeriod: " + self._start.strftime("%Y-%m-%d") + " to " + self._end.strftime("%Y-%m-%d")
+
+
+if __name__ == "__main__":
+    car = Car("CJ 01 ABC", "Dacia", "Sandero", "red")
+    client = Client(100, "280122334506070", "Pop Maria")
+
+    r = Rental(100, date(2022, 10, 15), date(2022, 11, 20), client, car)
+    print(len(r))
+
+    r = Rental(100, date(2022, 10, 15), None, client, car)
+    print(len(r))

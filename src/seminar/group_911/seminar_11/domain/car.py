@@ -1,4 +1,4 @@
-class car:
+class Car:
     """
     Add a new car to the car pool. Each car must have
         -> a valid license plate number,
@@ -41,7 +41,7 @@ class car:
 
 
 def test_car():
-    new_car = car("CJ 01 ABC", "Dacia", "Sandero", "red")
+    new_car = Car("CJ 01 ABC", "Dacia", "Sandero", "red")
     # assert new_car.get_id() == "CJ 01 ABC"
     assert new_car.car_id == "CJ 01 ABC"
     assert new_car.make == "Dacia"

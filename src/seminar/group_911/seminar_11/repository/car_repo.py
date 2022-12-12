@@ -1,4 +1,4 @@
-from seminar.group_911.seminar_11.domain.car import car
+from seminar.group_911.seminar_11.domain.car import Car
 from random import choice, randint
 import pickle
 
@@ -14,7 +14,7 @@ class car_repo(object):
         # keys are car license numbers, values are car objects
         self._data = {}
 
-    def add(self, new_car: car):
+    def add(self, new_car: Car):
         if new_car.car_id in self._data:
             raise RepoException("Car already in repo")
         self._data[new_car.car_id] = new_car
@@ -43,7 +43,7 @@ class car_repo_bin_file(car_repo):
         # load the cars from the file
         self._load_file()
 
-    def add(self, new_car: car):
+    def add(self, new_car: Car):
         # call the add() method on the super class
         # we want to do everything the superclass add() already does
         super().add(new_car)
@@ -100,7 +100,7 @@ class car_repo_text_file(car_repo):
 
         for line in lines:
             current_line = line.split(",")
-            new_car = car(current_line[0].strip(), current_line[1].strip(), current_line[2].strip(),
+            new_car = Car(current_line[0].strip(), current_line[1].strip(), current_line[2].strip(),
                           current_line[3].strip())
             # NOTE call super() so that we don't write the file we're reading from
             super().add(new_car)
@@ -122,7 +122,7 @@ class car_repo_text_file(car_repo):
         # call close when done writing
         fout.close()
 
-    def add(self, new_car: car):
+    def add(self, new_car: Car):
         # call the add() method on the super class
         # we want to do everything the superclass add() already does
         super().add(new_car)
@@ -182,7 +182,7 @@ def generate_cars(n: int):
         make = choice(list(make_model.keys()))
         model = choice(make_model[make])
         color = choice(colors)
-        result.append(car(car_id, make, model, color))
+        result.append(Car(car_id, make, model, color))
         n -= 1
     return result
 

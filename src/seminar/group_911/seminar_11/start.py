@@ -27,9 +27,55 @@ The application must allow its users to manage clients, cars and rentals in the 
 
     The application must have support for unlimited undo/redo with cascading.
 """
-from seminar.group_911.seminar_11.domain.car import car
+from seminar.group_911.seminar_09.repository.repo_memory import car_repo_bin_file
+from seminar.group_911.seminar_11.domain.car import Car
+from seminar.group_911.seminar_11.domain.car_validators import CarValidatorRO
+from seminar.group_911.seminar_11.domain.client import Client
+from seminar.group_911.seminar_11.domain.client_validators import ClientValidator
+from seminar.group_911.seminar_11.domain.rental_validators import RentalValidator
 from seminar.group_911.seminar_11.repository.car_repo import car_repo_text_file
 
+from seminar.group_911.seminar_11.repository.client_repo import ClientRepo
+from seminar.group_911.seminar_11.repository.rental_repo import RentalRepository
+
+# Initialize repositories
+from seminar.group_911.seminar_11.services.car_service import CarService
+from seminar.group_911.seminar_11.services.client_service import ClientService
+from seminar.group_911.seminar_11.services.rental_service import RentalService
+from seminar.group_911.seminar_11.ui.ui import UI
+
 car_repo = car_repo_text_file()
-# for car in generate_cars(20):
-#     car_repo.add(car)
+for c in car_repo.get_all():
+    print(c)
+
+
+def generate_rentals(n: int):
+    car_repo = car_repo_text_file()
+    client = Client(100, "290010203445566", "Pop Maria")
+
+    # TODO Generate n rentals
+    # all rentals have the same client (Pop Maria)
+    # rented car may vary
+    # Rental - id, client, car, start_date, end_date
+    # TODO - generate a random start date and end date
+    # select a car from the list of existing cars
+    # have a unique rental_id (start from 1000 and +1 for each instance)
+    # return the list of rentals
+    pass
+
+
+# NOTE you should be able to change the types of repos, services etc.
+# car_repo = car_repo_bin_file()
+client_repo = ClientRepo()
+rent_repo = RentalRepository()
+
+# Start up services layer
+# NOTE dependency injection of car repository for car service
+car_service = CarService(car_repo, CarValidatorRO())
+"""
+client_service = ClientService(client_repo, ClientValidator())
+rent_service = RentalService(rent_repo, car_service, RentalValidator())
+
+ui = UI(car_service, client_service, rent_service)
+ui.start()
+"""

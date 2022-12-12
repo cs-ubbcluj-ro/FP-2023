@@ -21,6 +21,11 @@ class Client:
         self._name = value
 
     def __eq__(self, z):
+        """
+        Two Clients are equal if they have the same id
+        :param z:
+        :return:
+        """
         if type(z) != Client:
             return False
         return self.id == z.id
@@ -30,3 +35,11 @@ class Client:
 
     def __repr__(self):
         return str(self)
+
+
+if __name__ == "__main__":
+    c1 = Client(100, "280122334506070", "Pop Maria")
+    c2 = Client(101, "2334506070", "Pop Maria")
+    print(id(c1), id(c2))
+    # Note fun with == __eq__
+    print(c1 == [])
