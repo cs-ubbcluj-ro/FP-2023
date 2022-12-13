@@ -53,7 +53,6 @@ class fileRepository(Repository):
         # save the ingredients to file
         self._save_file()
 
-
     def _load_file(self):
         raise NotImplementedError()
 
@@ -86,8 +85,9 @@ class binFileRepository(fileRepository):
         fout.close()
 
 
-repo = binFileRepository()
-# repo.add(Ingredient(100, "Flour"))
-# repo.add(Ingredient(101, "Spices"))
-print(repo.get(101))
-print(len(repo))
+if __name__ == "__main__":
+    repo = binFileRepository()
+    # repo.add(Ingredient(100, "Flour"))
+    # repo.add(Ingredient(101, "Spices"))
+    print(repo.get(101))
+    print(len(repo))
