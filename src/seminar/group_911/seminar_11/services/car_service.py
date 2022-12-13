@@ -18,3 +18,6 @@ class CarService:
         self._validator.validate(car)
         # 3. Add car to repo
         self._repo.add(car)
+
+    def get_all(self):
+        return self._repo.get_all()
