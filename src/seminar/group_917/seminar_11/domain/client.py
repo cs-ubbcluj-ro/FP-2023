@@ -30,3 +30,10 @@ class Client:
 
     def __repr__(self):
         return str(self)
+
+
+if __name__ == "__main__":
+    c1 = Client(100, "1900102034455", "Pop Marian")
+    c2 = Client(101, "1900102034455", "Pop Marian")
+    # print([c1, c1, c1])
+    print(c1 == [])
