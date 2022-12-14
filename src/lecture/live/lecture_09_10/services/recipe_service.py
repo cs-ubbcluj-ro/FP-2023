@@ -1,0 +1,2 @@
+class RecipeService:
+    pass
