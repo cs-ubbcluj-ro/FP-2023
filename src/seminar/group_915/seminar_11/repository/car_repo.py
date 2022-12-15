@@ -37,7 +37,7 @@ class car_repo(object):
 class car_repo_bin_file(car_repo):
     def __init__(self, file_name="cars.bin"):
         # call superclass constructor
-        super(car_repo_bin_file, self).__init__()
+        super().__init__()
         # remember the name of the file we're working with
         self._file_name = file_name
         # load the cars from the file
@@ -74,7 +74,7 @@ class car_repo_text_file(car_repo):
 
     def __init__(self, file_name="cars.txt"):
         # call superclass constructor
-        super(car_repo_text_file, self).__init__()
+        super().__init__()
         # remember the name of the file we're working with
         self._file_name = file_name
         # load the cars from the file

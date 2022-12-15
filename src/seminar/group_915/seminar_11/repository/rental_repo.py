@@ -21,3 +21,6 @@ class RentalRepository:
 
     def get_all(self):
         return list(self._data.values())
+
+    def __len__(self):
+        return len(self._data)

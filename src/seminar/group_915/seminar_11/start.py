@@ -22,15 +22,73 @@ The application must allow its users to manage clients, cars and rentals in the 
          When a car is returned, it becomes available for renting once again.
          Search the rental history of a given client, car, or all rentals during any given period.
     Statistics
-         The list of all cars in the car pool sorted by number of days they were rented.
+         The list of all cars in the car pool sorted by number of days
+        they were rented.
+
          The list of clients sorted descending by the number of cars they have rented.
 
     The application must have support for unlimited undo/redo with cascading.
 """
+import random
+from datetime import date, timedelta
+
 from seminar.group_915.seminar_11.domain.car import car
+from seminar.group_915.seminar_11.domain.car_validators import CarValidatorRO
+from seminar.group_915.seminar_11.domain.client import Client
+from seminar.group_915.seminar_11.domain.rental import Rental
+from seminar.group_915.seminar_11.domain.rental_validators import RentalValidator
 from seminar.group_915.seminar_11.repository.car_repo import car_repo_text_file
 
+from seminar.group_915.seminar_11.repository.client_repo import ClientRepo
+from seminar.group_915.seminar_11.repository.rental_repo import RentalRepository
+from seminar.group_915.seminar_11.services.car_service import CarService
+from seminar.group_915.seminar_11.services.rental_service import RentalService
+
+
+def generate_rentals(n: int, car_repo: car_repo_text_file, rental_service: RentalService):
+    # generate n valid rentals for statistics purposes
+    client = Client(1000, "290010203045566", "Popescu Anca")
+    # all_cars = car_repo_text_file.get_all(car_repo)
+    all_cars = car_repo.get_all()
+    rental_id = 1000
+
+    while n > 0:
+        car = random.choice(all_cars)
+        rnd = random.randint
+
+        start = date(rnd(2020, 2022), rnd(1, 12), rnd(1, 28))
+        end = start + timedelta(days=rnd(1, 20))
+        # Add the rental directly through service
+        try:
+            rental_service.add(rental_id, start, end, client, car)
+        except Exception as e:
+            print(e)
+
+        rental_id += 1
+        n -= 1
+
+
+# 1. Initialize repositories for all entities
+
+
+# we have 40 cars stored here
 car_repo = car_repo_text_file()
 
-# for car in generate_cars(20):
-#     car_repo.add(car)
+# we have no rentals => let's generate some
+rental_repo = RentalRepository()
+client_repo = ClientRepo()
+
+# 2. Start up services
+# NOTE We can change the repo or validator implementation without
+# changing the CarService source code
+# NOTE Dependency injection
+# CarService depends on car_repo to do its job => dependency
+# we provide car_repo as an actual parameter => injection
+car_service = CarService(car_repo, CarValidatorRO())
+rental_service = RentalService(rental_repo, RentalValidator(), car_service)
+
+generate_rentals(10, car_repo, rental_service)
+
+result = rental_service.statistic_cars_by_rental_days()
+for res in result:
+    print(res)
