@@ -8,6 +8,28 @@ from seminar.group_912.seminar_11.repository.rental_repo import RentalRepository
 from seminar.group_912.seminar_11.services.car_service import CarService
 
 
+class CarRentalDaysDTO:
+    # Data Transfer Object between service and UI layer
+    def __init__(self, car, rental_days):
+        self._car = car
+        self._rental_days = rental_days
+
+    @property
+    def car(self):
+        return self._car
+
+    @property
+    def days(self):
+        return self._rental_days
+
+    def __le__(self):
+        # NOTE for sorting
+        pass
+
+    def __str__(self):
+        return str(self.days) + " for car " + str(self.car)
+
+
 class RentalService:
     # To do its job, the RentalService needs the rental repo, a car service
     # and a way to validate car instances
@@ -26,4 +48,21 @@ class RentalService:
         self._repo.add(rent)
 
     def statistic_cars_by_rental_days(self):
-        pass
+        # NOTE keys are car license plates, values are total rental days
+        rental_dict = {}
+
+        for rental in self._repo.get_all():
+            if rental.car.car_id not in rental_dict:
+                rental_dict[rental.car.car_id] = len(rental)
+            else:
+                rental_dict[rental.car.car_id] += len(rental)
+
+        # TODO add all cars that were never rented
+        result = []
+        for key in rental_dict:
+            car = self._car_service.get(key)
+            result.append(CarRentalDaysDTO(car, rental_dict[key]))
+
+        # sort by number of rental days
+        result.sort(key=lambda x: x.days, reverse=True)
+        return result

@@ -41,21 +41,26 @@ from seminar.group_912.seminar_11.repository.rental_repo import RentalRepository
 from seminar.group_912.seminar_11.services.car_service import CarService
 from seminar.group_912.seminar_11.services.rental_service import RentalService
 
+import random
+from datetime import date, timedelta
 
-def generate_rentals(n: int):
+
+def generate_rentals(n: int, rental_service):
     # NOTE generate n rentals here
     # this client rents all cars
     c1 = Client(1000, "290010203445566", "Popescu Ana")
     # car_repo holds the cars that will be rented out
     car_repo = car_repo_text_file()
-
-    # increase rental_id by 1 for each rental
     rental_id = 1000
-    # generate random date for rental start and rental end
-    # say between 1 and 20 days
+    rnd = random.randint
 
-    # return the list of rentals
-    pass
+    while n > 0:
+        car = random.choice(car_repo.get_all())
+        start = date(rnd(2021, 2022), rnd(1, 12), rnd(1, 28))
+        end = start + timedelta(days=rnd(1, 20))
+        rental_service.add(rental_id, start, end, c1, car)
+        rental_id += 1
+        n -= 1
 
 
 car_repo = car_repo_text_file()
@@ -66,13 +71,14 @@ rental_repo = RentalRepository()
 # NOTE this is named "dependency injection"
 car_service = CarService(car_repo, CarValidatorRO())
 rental_service = RentalService(rental_repo, car_service, RentalValidator())
+generate_rentals(100, rental_service)
 
 statistic_result = rental_service.statistic_cars_by_rental_days()
+for sr in statistic_result:
+    print(sr)
 
-print(len(car_repo))
-
-for s in statistic_result:
-    print(s)
+# for s in statistic_result:
+#     print(s)
 
 # ui = UI( < pass all services here >)
 # ui.start()
