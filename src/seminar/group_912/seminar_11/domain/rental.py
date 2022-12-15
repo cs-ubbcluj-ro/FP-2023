@@ -1,8 +1,8 @@
-from datetime import date
+from datetime import date, timedelta
 
 
 class Rental:
-    def __init__(self, rental_id, start, end, client, car):
+    def __init__(self, rental_id: int, start: date, end: date, client, car):
         self._rentalId = rental_id
         self._client = client
         self._car = car
@@ -58,3 +58,12 @@ class Rental:
     def __str__(self):
         return "Rental: " + str(self.id) + "\nCar: " + str(self.car) + "\nClient: " + str(
             self.client) + "\nPeriod: " + self._start.strftime("%Y-%m-%d") + " to " + self._end.strftime("%Y-%m-%d")
+
+
+if __name__ == "__main__":
+    d1 = date(2020, 12, 15)
+    d2 = date(2022, 12, 15)
+
+    td = timedelta(days=3)
+
+    print(type(d2 + td))

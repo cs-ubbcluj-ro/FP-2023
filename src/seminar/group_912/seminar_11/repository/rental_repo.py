@@ -15,7 +15,7 @@ class RentalRepository:
 
     def remove(self, rental_id):
         if rental_id in self._data.keys():
-            del self.data[rental_id]
+            del self._data[rental_id]
         else:
             raise RepositoryException("Rental was not found")
 

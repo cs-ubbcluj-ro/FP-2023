@@ -37,7 +37,7 @@ class car_repo(object):
 class car_repo_bin_file(car_repo):
     def __init__(self, file_name="cars.bin"):
         # call superclass constructor
-        super(car_repo_bin_file, self).__init__()
+        super().__init__()
         # remember the name of the file we're working with
         self._file_name = file_name
         # load the cars from the file
@@ -52,12 +52,16 @@ class car_repo_bin_file(car_repo):
 
     def _load_file(self):
         # r - read, b - binary
-        fin = open(self._file_name, "rb")
-        obj = pickle.load(fin)
+        obj = []
+        try:
+            fin = open(self._file_name, "rb")
+            obj = pickle.load(fin)
+            fin.close()
+        except FileNotFoundError:
+            pass
 
         for c in obj:
             super().add(c)
-        fin.close()
 
     def _save_file(self):
         # w - write mode (overwrite), b - binary mode
@@ -74,7 +78,7 @@ class car_repo_text_file(car_repo):
 
     def __init__(self, file_name="cars.txt"):
         # call superclass constructor
-        super(car_repo_text_file, self).__init__()
+        super().__init__()
         # remember the name of the file we're working with
         self._file_name = file_name
         # load the cars from the file
@@ -198,15 +202,19 @@ if __name__ == "__main__":
 
     # read the cars.bin input file
     car_repo_bin = car_repo_bin_file()
+    car_list = generate_cars(20)
+    for c in car_list:
+        car_repo_bin.add(c)
+
     print("Cars saved in cars.bin")
     for c in car_repo_bin.get_all():
         print(str(c))
 
     # read the cars.txt file
-    car_repo_text = car_repo_text_file()
-    print("\n\nCars saved in cars.txt")
-    for c in car_repo_text.get_all():
-        print(str(c))
+    # car_repo_text = car_repo_text_file()
+    # print("\n\nCars saved in cars.txt")
+    # for c in car_repo_text.get_all():
+    #     print(str(c))
 
     # NOTE Load the cars and display them again
     # new_car_repo = car_repo_text_file()
