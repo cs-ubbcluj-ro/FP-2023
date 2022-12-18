@@ -1,11 +1,13 @@
 from lecture.live.lecture_09_10.domain.ingredient import Ingredient
 from lecture.live.lecture_09_10.domain.recipe import Recipe
 from lecture.live.lecture_09_10.domain.stock import Stock
+from lecture.live.lecture_09_10.repo.file_repo import IngredientFileRepo, StockFileRepo
+from lecture.live.lecture_09_10.repo.mem_repo import Repository
 
 
 def create_ingredients():
     ingr = {}
-    ingr[100] = Ingredient(100, "Bread Flour (White, 550)")
+    ingr[100] = Ingredient(100, "Bread Flour (White 550)")
     ingr[101] = Ingredient(101, "Yeast (dry)")
     ingr[102] = Ingredient(102, "Sugar (white)")
     ingr[103] = Ingredient(103, "Salt (regular)")
@@ -74,5 +76,26 @@ def create_recipes():
 
 
 if __name__ == "__main__":
-    recipes = create_recipes()
-    print(recipes)
+    # 1. Ingredients
+    # ingr_repo = Repository()
+    ingr_repo = IngredientFileRepo()
+    # for ingr in create_ingredients().values():
+    #     ingr_repo.add(ingr)
+    # print(len(ingr_repo))
+    # print(ingr_repo.get(105))
+
+    # 2. Stocks
+    stock_repo = StockFileRepo(ingr_repo)
+    print(stock_repo.get(105))
+
+    # for stock in create_stocks().values():
+    #     stock_repo.add(stock)
+
+    # 2. Recipes
+    # recipe_repo = Repository()
+    # for recipe in create_recipes():
+    #     recipe_repo.add(recipe)
+    # print(len(recipe_repo))
+
+    # recipes = create_recipes()
+    # print(recipes)

@@ -1,0 +1,10 @@
+100,Bread Flour (White 550)
+101,Yeast (dry)
+102,Sugar (white)
+103,Salt (regular)
+104,Oil (canola)
+105,Butter
+106,Egg (chicken)
+107,Cake flour
+108,Baking powder
+109,Vanilla (extract)
