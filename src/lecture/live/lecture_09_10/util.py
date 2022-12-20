@@ -1,7 +1,10 @@
 from lecture.live.lecture_09_10.domain.ingredient import Ingredient
+from lecture.live.lecture_09_10.domain.product import Product
 from lecture.live.lecture_09_10.domain.recipe import Recipe
 from lecture.live.lecture_09_10.domain.stock import Stock
-from lecture.live.lecture_09_10.repo.file_repo import IngredientFileRepo, StockFileRepo
+from lecture.live.lecture_09_10.repo.ingredient_repo import IngredientFileRepo
+from lecture.live.lecture_09_10.repo.product_repo import ProductFileRepo
+from lecture.live.lecture_09_10.repo.stock_repo import StockFileRepo
 from lecture.live.lecture_09_10.repo.mem_repo import Repository
 
 
@@ -79,14 +82,26 @@ if __name__ == "__main__":
     # 1. Ingredients
     # ingr_repo = Repository()
     ingr_repo = IngredientFileRepo()
+
     # for ingr in create_ingredients().values():
     #     ingr_repo.add(ingr)
     # print(len(ingr_repo))
     # print(ingr_repo.get(105))
 
     # 2. Stocks
-    stock_repo = StockFileRepo(ingr_repo)
-    print(stock_repo.get(105))
+    # stock_repo = StockFileRepo(ingr_repo)
+    # print(stock_repo.get(105))
+
+    # 3. Products
+    # TODO Must implement a file-backed Recipe Repository :)
+    recipe_repo = Repository()
+    # TODO How can we add all recipes to the repo at once?
+    recipe_repo.add(create_recipes()[0])
+    recipe_repo.add(create_recipes()[1])
+
+    product_repo = ProductFileRepo(recipe_repo)
+    # product_repo.add(Product(3000, "Basic Homemade Bread", 0, recipe_repo.get(500)))
+    # product_repo.add(Product(3001, "Simple Vanilla Cake", 0, recipe_repo.get(501)))
 
     # for stock in create_stocks().values():
     #     stock_repo.add(stock)

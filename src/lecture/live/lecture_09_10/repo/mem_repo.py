@@ -7,6 +7,7 @@ class RepositoryError(Exception):
 
 
 class Repository:
+
     def __init__(self):
         self._data = {}
 
