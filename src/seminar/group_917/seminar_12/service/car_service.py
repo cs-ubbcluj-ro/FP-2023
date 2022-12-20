@@ -1,4 +1,5 @@
 from seminar.group_917.seminar_12.domain.car import Car
+from seminar.group_917.seminar_12.service.undo_service import fun_call, operation
 
 
 class CarService:
@@ -20,13 +21,17 @@ class CarService:
         """
         car = self._repository.delete(car_id)
 
+        undo_call = fun_call(self.create, car.id, car.license, car.make, car.model)
+        redo_call = fun_call(self.delete, car.id)
+        self._undo_service.record_for_undo(operation(undo_call, redo_call))
+
         '''
             2. Delete its rentals
             NB! This implementation is not transactional, i.e. the two delete operations are performed separately
         '''
         rentals = self._rental_service.filter_rentals(None, car)
         for rent in rentals:
-            self._rental_service.delete_rental(rent.id)
+            self._rental_service.delete_wrental(rent.id)
         return car
 
     def update(self, car):

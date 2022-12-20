@@ -76,7 +76,7 @@ def undo_example_hard():
     '''
     Last redo
     '''
-    undo_service.redo()
+    # undo_service.redo()
     print_repos_with_message("1 redo - but there are no more redos", client_repo, car_repo, None)
 
 
