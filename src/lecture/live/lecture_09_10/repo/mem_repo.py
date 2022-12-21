@@ -6,6 +6,20 @@ class RepositoryError(Exception):
     pass
 
 
+class RepoIterator:
+    def __init__(self, data: dict):
+        self._data = list(data.values())
+        self._index = 0
+
+    def __next__(self):
+        if self._index == len(self._data):
+            raise StopIteration()
+
+        elem = self._data[self._index]
+        self._index += 1
+        return elem
+
+
 class Repository:
 
     def __init__(self):
@@ -23,6 +37,9 @@ class Repository:
 
     def __len__(self):
         return len(self._data)
+
+    def __iter__(self):
+        return RepoIterator(self._data)
 
 
 if __name__ == "__main__":

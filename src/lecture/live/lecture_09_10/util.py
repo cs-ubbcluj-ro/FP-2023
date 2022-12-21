@@ -1,11 +1,15 @@
+from lecture.live.lecture_09_10.domain.idobject import IdObject
 from lecture.live.lecture_09_10.domain.ingredient import Ingredient
 from lecture.live.lecture_09_10.domain.product import Product
 from lecture.live.lecture_09_10.domain.recipe import Recipe
 from lecture.live.lecture_09_10.domain.stock import Stock
+from lecture.live.lecture_09_10.repo.converters import StockConverter
 from lecture.live.lecture_09_10.repo.ingredient_repo import IngredientFileRepo
 from lecture.live.lecture_09_10.repo.product_repo import ProductFileRepo
+from lecture.live.lecture_09_10.repo.recipe_repo import RecipeFileRepo
 from lecture.live.lecture_09_10.repo.stock_repo import StockFileRepo
 from lecture.live.lecture_09_10.repo.mem_repo import Repository
+from lecture.live.lecture_09_10.repo.text_file_repo import TextFileRepo
 
 
 def create_ingredients():
@@ -65,6 +69,9 @@ def create_recipes():
     1tsp vanilla extract
     pinch of salt
     source: https://www.houseandgarden.co.uk/recipe/simple-vanilla-cake-recipe
+    
+    this recipe in CSV file format 
+    501,Tasty Cookies,105,175,102,175,106,3, ...
     """
     recipe_cake = Recipe(501, "Tasty Cookies")
     recipe_cake.stocks.append(Stock(105, ingredients[105], 175))
@@ -82,6 +89,8 @@ if __name__ == "__main__":
     # 1. Ingredients
     # ingr_repo = Repository()
     ingr_repo = IngredientFileRepo()
+    for i in ingr_repo:
+        print(i)
 
     # for ingr in create_ingredients().values():
     #     ingr_repo.add(ingr)
@@ -89,15 +98,23 @@ if __name__ == "__main__":
     # print(ingr_repo.get(105))
 
     # 2. Stocks
+    stock_converter = StockConverter(ingr_repo)
+    stock_repo = TextFileRepo(stock_converter, file_name="stocks.txt")
+    print(stock_repo.get(105).ingredient)
+
+    for stock in stock_repo:
+        print(str(stock.id) + ", " + str(stock.ingredient))
+
     # stock_repo = StockFileRepo(ingr_repo)
     # print(stock_repo.get(105))
 
     # 3. Products
     # TODO Must implement a file-backed Recipe Repository :)
-    recipe_repo = Repository()
+    recipe_repo = RecipeFileRepo(stock_repo)
     # TODO How can we add all recipes to the repo at once?
-    recipe_repo.add(create_recipes()[0])
-    recipe_repo.add(create_recipes()[1])
+    # recipe_repo.add(create_recipes()[0])
+    # recipe_repo.add(create_recipes()[1])
+    print(recipe_repo.get(501))
 
     product_repo = ProductFileRepo(recipe_repo)
     # product_repo.add(Product(3000, "Basic Homemade Bread", 0, recipe_repo.get(500)))
