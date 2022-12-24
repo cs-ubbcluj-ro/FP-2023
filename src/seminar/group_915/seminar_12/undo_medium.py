@@ -67,5 +67,14 @@ def undo_example_medium():
     undo_service.redo()
     print_repos_with_message("1 redo, so Sophia is again deleted", client_repo, None, None)
 
+    undo_service.redo()
+    print_repos_with_message("end of redos", client_repo, None, None)
+
+    undo_service.undo()
+    undo_service.undo()
+    undo_service.redo()
+    undo_service.redo()
+    print_repos_with_message("end of redos", client_repo, None, None)
+
 
 undo_example_medium()
