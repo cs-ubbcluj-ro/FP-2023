@@ -15,13 +15,44 @@ Observations!
 •	The day starts at 00:00 and ends at 23:59.
 •	Default 1p.
 
+-= Iteration 1 =-
+1. Write the Flight class
+    - attributes should be properties
 
+2. Write the FlightRepo class
+    -> __init__ load the flight data from .txt file
+    -> get_all() -> list # returns all flights
 
+3. Write a TestFlightRepo class in package /tests
+    -> assert that the input file was read
 
+4. Write the FlightServices class
+    -> get_all() -> list # returns all flights
 
+5. Write the UI class
+    -> display the main menu:
+        a. Display all flights
+        x. Exit
 
+# commit !
 
+-= Iteration 2 =-
+1. Update FlightRepo class
+    -> add the add_flight(...) method
+    -> add the _save_file(...) method # called when changing the flights
 
+2. Update FlightServices class
+    -> add the add_flight(...) method
+       # it's ok if it just forwards to Repository
+
+3. Write the FlightValidator class
+    -> add the is_valid(...) -> bool method
+
+4. Update the UI class
+    -> display the main menu:
+        a. Display all flights
+        b. Add new flight
+        x. Exit
 
 
 
