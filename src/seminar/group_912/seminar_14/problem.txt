@@ -15,13 +15,56 @@ Observations!
 •	The day starts at 00:00 and ends at 23:59.
 •	Default 1p
 
+# TODO
 
+---= Iteration 1 =---
+1. Implement the Flight class
+       -- required attributes
+       -- __str__
+       -- use private/protected attributes and properties :)
 
+2. Implement the TextFlightsRepo class
+        -- __init__()
+        -- _load_file()
+        -- get_all()
 
+3. Implement the TestFlightsRepo(unittest.TestCase) class
+        -- use PyUnit test framework
+        -- self.assert*(...)
+        -- put tests in the src/tests package
 
+4. Implement the FlightServices class
+        -- __init__ (receive the repository instance)
+        -- get_all() (move flights to UI for display)
 
+5. Implement the UI class
+        -- __init__ (receive the services class it is working with)
+        -- display the main menu:
+            a. Display all flights
+            x. Exit
 
+---= Iteration 2 -> Add flight =---
+2. Implement the TextFlightsRepo class
+        -- add_flight(...) # + specification
+        -- _save_file(...) # called from add_flight(...)
 
+3. Implement the TestFlightsRepo(unittest.TestCase) class
+        -- add test case for add_flight
+
+4. Implement FlightValidator class
+        -- validate(...) method -> raise Exception if problems
+
+5. Implement the FlightServices class
+        -- __init__ (receive the repository and validator instances)
+        -- add_flight(...) method # + specification
+            -- calls FlightValidator.validate
+            -- call repo.add_flight()
+
+6. Implement the UI class
+        -- display the main menu:
+            a. Display all flights
+            b. Add flight
+            x. Exit
 
 
 
