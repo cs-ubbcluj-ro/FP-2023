@@ -39,4 +39,25 @@ Observations!
         a. Display all flights
         x. Exit
 
+-= Iteration 2 =-
+2. In the TextFlightsRepository class
+    -- _save_file(...) # save all flights to the text file
+    -- add_flight(...) # calls _save_file(...)
 
+3. Implement the TestTextFlightsRepository(unittest.TestCase) class
+    -- test_add_flight(...) # test function
+
+4. Implement FlightValidator class
+    -- validate_flight(...)
+        # pass is validation is ok
+        # raise Exception in case of issues
+
+5. In the FlightsServices class
+    -- add_flight(...)
+        # calls FlightValidator.validate_flight(...)
+
+6. In the FlightsUI class
+    -- display the main menu
+        a. Display all flights
+        b. Add flight
+        x. Exit
