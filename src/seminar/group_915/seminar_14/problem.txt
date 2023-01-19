@@ -15,4 +15,28 @@ Observations!
 •	The day starts at 00:00 and ends at 23:59.
 •	Default 1p
 
+# TODO
+
+-= Iteration 1 =-
+
+1. Implement Flight class
+    -- have private/protected fields
+    -- use properties (read-only!?)
+    -- implement __str__ / __repr__
+
+2. Implement TextFlightsRepository class
+    -- __init__ (take file name as param, load the flights)
+    -- _load_file(...)
+    -- get_all (return all flights, maybe to display them in UI)
+
+3. Implement FlightsServices class
+    -- __init__ (take repository as parameter)
+    -- get_all (return all flights to the UI)
+
+4. Implement FlightsUI class
+    -- __init__ (take services class as parameter)
+    -- display the main menu
+        a. Display all flights
+        x. Exit
+
 
