@@ -14,6 +14,21 @@ Write a calculator program that supports the +, -, *, / for natural numbers. Exi
     <op> is one of +, -, *, /
 """
 
+
+def calculate(x: int, y: int, symbol: str) -> float:
+    # check out the eval() function
+    if symbol == "+":
+        return x + y
+    elif symbol == "-":
+        return x - y
+    elif symbol == "*":
+        return x * y
+    elif symbol == "/":
+        return x / y
+    else:
+        raise ValueError("Unknown operation")
+
+
 operations = "+-*/"
 print("Welcome to calculator. Print exit to quit.")
 
@@ -37,22 +52,9 @@ while True:
         break
 
     tokens = command.split(symbol)
+    oper_left = int(tokens[0].strip())
+    oper_right = int(tokens[1].strip())
 
-    for i in range(0, len(tokens)):
-        tokens[i] = tokens[i].strip()
-        tokens[i] = int(tokens[i])
-
-    # check out the eval() function
-    result = None
-    if symbol == "+":
-        result = tokens[0] + tokens[1]
-    elif symbol == "-":
-        result = tokens[0] - tokens[1]
-    elif symbol == "*":
-        result = tokens[0] * tokens[1]
-    elif symbol == "/":
-        result = tokens[0] / tokens[1]
-
-    print("Result: ", result)
+    print("Result: ", calculate(oper_left, oper_right, symbol))
 
 print("Goodbye!")
