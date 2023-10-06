@@ -20,5 +20,7 @@ while True:
         elif userlist[1] == '/':
             print(a/b)
 
+        print("fsdf")
+
 # if 'exit' in cmd.lower():
 #     break
