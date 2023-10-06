@@ -9,32 +9,36 @@ def compute(a: int, b: int, symbol: str) -> float:
         return a / b
 
 
-# TO DO (modifications): add validation function
-# renaming (optional)
-#
-print("This is a calculator app. Available operations: +, -, *, /. exit to stop.")
+# TO DO (modifications): add validation function/move validation in function
+
+print("This is a calculator app. Available operations: +, -, *, /. Type exit to stop.")
 operations = '+-/*'
+
 while True:
     cmd = input(">>>")
-    op_count = 0
-    # for index in range(len(operations)):
-    for op in operations:
-        op_count += cmd.count(op)
+    cmd = cmd.lower().strip()
+    operator_count = 0
 
-    if op_count != 1:
+    if cmd == 'exit':
+        break
+
+    for operator in operations:
+        operator_count += cmd.count(operator)
+
+    if operator_count != 1:
         print("Invalid command. Please try again.")
         continue
-    if cmd.lower().strip() == 'exit':
-        break
-    else:
-        userlist = cmd.split()
-        if len(userlist) != 3:
-            print("Please enter a valid command.")
-            continue
 
-        a = int(userlist[0])
-        b = int(userlist[2])
-        result = compute(a, b, userlist[1])
-        print('Result is:', result)
-# if 'exit' in cmd.lower():
-#     break
+    tokens = cmd.split()
+
+    # Do we still need this check after adding the verification above?
+    # What do we check here? Can we provide more information to the user about why
+    # their command was not valid?
+    if len(tokens) != 3:
+        print("Invalid command. Please try again.")
+        continue
+
+    left_operand = int(tokens[0])
+    right_operand = int(tokens[2])
+    result = compute(left_operand, right_operand, tokens[1])
+    print('Result is:', result)
