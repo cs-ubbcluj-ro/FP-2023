@@ -41,8 +41,6 @@ def test_factorial():
     assert fact1 == fact2
 
 
-test_factorial()
-
 '''
     2. Compute the sum of a list of numbers
 '''
@@ -77,10 +75,8 @@ def test_sum_list():
     assert sum_list([1, 2, 3, 4, 5, 6]) == 21
 
 
-test_sum_list()
-
 '''
-    3. Cumpute the n-th term of the Fiboanacci sequence:
+    3. Compute the n-th term of the Fibonacci sequence
 '''
 
 
@@ -105,14 +101,29 @@ def fibo(n):
     return fibo(n - 2) + fibo(n - 1)
 
 
+"""
+    3a. Compute the n-th term of the Fibonacci sequence
+    (tail call recursion - enabled, but not supported in Python, see:
+        https://dev.to/rohit/demystifying-tail-call-optimization-5bf3
+        https://tratt.net/laurie/blog/2004/tail_call_optimization.html
+        http://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html)
+"""
+
+
+def fib_tail_call(i, current_val=1, next_val=1):
+    if i == 0:
+        return current_val
+    else:
+        return fib_tail_call(i - 1, next_val, current_val + next_val)
+
+
 def test_fibo():
     fib = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
 
     for index in range(0, len(fib)):
         assert fibo(index) == fib[index]
+        assert fib_tail_call(index) == fib[index]
 
-
-test_fibo()
 
 '''
     4. Determine whether a given string is a palindrome
@@ -150,4 +161,8 @@ def test_palindrome():
     assert palindrome("abcddca") is False
 
 
-test_palindrome()
+if __name__ == "__main__":
+    test_factorial()
+    test_sum_list()
+    test_fibo()
+    test_palindrome()
