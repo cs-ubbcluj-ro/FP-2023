@@ -47,9 +47,6 @@ def to_str(circle: dict) -> str:
 data = [create_circle(3, 4, 2), create_circle(1, 2, 3)]
 # print(data)
 
-# for (auto x : data)
-# for circle in data:
-#     print(to_str(circle))
 
 # for (int i = 0; i < data.size(); i++)
 # range(0, 5) => 0, 1, 2, 3, 4
@@ -66,8 +63,9 @@ while True:
         # add a circle
         pass
     elif option == "2":
-        # display circles
-        pass
+        for circle in data:
+            print(to_str(circle), end=" | ")  # named Python parameters
+        print("")
     elif option == "0":
         break
     else:
