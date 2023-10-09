@@ -47,8 +47,31 @@ def to_str(circle: dict) -> str:
 data = [create_circle(3, 4, 2), create_circle(1, 2, 3)]
 # print(data)
 
-for circle in data:
-    print(to_str(circle))
+# for (auto x : data)
+# for circle in data:
+#     print(to_str(circle))
+
+# for (int i = 0; i < data.size(); i++)
+# range(0, 5) => 0, 1, 2, 3, 4
+# for i in range(0, len(data)):
+#     print(to_str(data[i]))
+
+while True:
+    print("1. Add a circle")
+    print("2. Display all circles")
+    print("0. Exit the program")
+    option = input(">")
+
+    if option == "1":  # C switch statement
+        # add a circle
+        pass
+    elif option == "2":
+        # display circles
+        pass
+    elif option == "0":
+        break
+    else:
+        print("Invalid option")
 
 # circle center (1,2), radius 3 => {"x":1,"y":2,"r":3}
 # d = {1: "Alice", 2: "Bob", 3: [1, 2, 3]}
