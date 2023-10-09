@@ -38,7 +38,8 @@ while True:
         print("Invalid command. Please try again.")
         continue
 
-    left_operand = int(tokens[0])
-    right_operand = int(tokens[2])
+    left_operand = int(tokens[0].strip())
+    right_operand = int(tokens[2].strip())
     result = compute(left_operand, right_operand, tokens[1])
     print('Result is:', result)
+
