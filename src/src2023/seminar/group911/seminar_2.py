@@ -15,17 +15,40 @@ print("Hello circle!")
         circle center (x,y) and radius (r) -- all integers, r > 0
         
 """
-c1 = {"x": 1, "y": 2, "r": 3}
-c2 = {"x": 3, "y": 4, "r": 5}
-print([c1, c2])
+
 
 # Decouple the circle's representation from the program
 # (the program should not know that the circle is a dict)
 # Circle functions
+def create_circle(x: int, y: int, radius: int) -> dict:
+    """
+    Create a circle represented as a dictionary
+    :param x: X coordinate of center
+    :param y: Y coordinate of center
+    :param radius: circle radius
+    :return: The newly created circle
+    """
+    return {"x": x, "y": y, "r": radius}
+
+
+# str - Python string data type
+# str() builtin function to convert its argument to a Python string.
+
+def to_str(circle: dict) -> str:
+    # TODO Write specification for this method
+    return "circle center (" + str(circle["x"]) + "," + str(circle["y"]) + "), radius=" + str(circle["r"])
 
 
 # Program functionalities
+# c1 = {"x": 1, "y": 2, "r": 3}
+# c2 = {"x": 3, "y": 4, "r": 5}
+# print([c1, c2])
 
+data = [create_circle(3, 4, 2), create_circle(1, 2, 3)]
+# print(data)
+
+for circle in data:
+    print(to_str(circle))
 
 # circle center (1,2), radius 3 => {"x":1,"y":2,"r":3}
 # d = {1: "Alice", 2: "Bob", 3: [1, 2, 3]}
