@@ -38,8 +38,26 @@ def print_z(z: tuple) -> None:
 
 
 # Functions that implement program requirements
+flag = True
+while flag:
+    print("1. Add a complex number")
+    print("2. Display all numbers")
+    print("0. Exit")
 
-z = create_z(1, 2)
-print(z)
-print(to_str(z))
-print_z(z)
+    option = input(">")
+    if option == "1":
+        # add a number
+        pass
+    elif option == "2":
+        # display numbers
+        pass
+    elif option == "0":
+        flag = False
+        print("bye!")
+    else:
+        print("Bad command or file name")
+
+# z = create_z(1, 2)
+# print(z)
+# print(to_str(z))
+# print_z(z)
