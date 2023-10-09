@@ -7,10 +7,10 @@ Created on Dec 6, 2016
 from texttable import Texttable
 import timeit
 
-from archive.src_2022_2023.lecture.examples.ex05_complexity import fibonacci_recursive, fibonacci_iterative
+from src2023.lecture.examples.ex05_complexity import fibonacci_recursive, fibonacci_iterative
 
 '''
-    4. To speed up the recursive implementation, we use memoization to store interim results
+    To speed up the recursive implementation, we use memoization to store interim results
 '''
 results = {0: 0, 1: 1}
 
