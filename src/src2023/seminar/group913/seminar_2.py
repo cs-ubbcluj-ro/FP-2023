@@ -14,6 +14,8 @@ Problem statement:
 """
 
 
+# TODO Implement remaining functionalities
+
 # Functions that deal with complex numbers
 
 # z = 1 + 2*i => z_tuple = (1,2)
@@ -30,6 +32,12 @@ def create_z(real: int, imag: int) -> tuple:
 
 def to_str(z: tuple) -> str:
     # TODO Write specification for this function
+    if z[1] == 0:
+        return str(z[0])
+    if z[0] == 0:
+        return str(z[1]) + "i"
+    if z[1] < 0:
+        return str(z[0]) + str(z[1]) + "i"
     return str(z[0]) + "+" + str(z[1]) + "i"
 
 
@@ -38,6 +46,8 @@ def print_z(z: tuple) -> None:
 
 
 # Functions that implement program requirements
+
+data = [create_z(1, 2), create_z(1, -1), create_z(0, 0), create_z(45, 0)]  # data = list()
 flag = True
 while flag:
     print("1. Add a complex number")
@@ -46,11 +56,26 @@ while flag:
 
     option = input(">")
     if option == "1":
-        # add a number
-        pass
+        # TODO Parse numbers in the (a + bi) format
+        # TODO Program crash on incorrect input
+        z_real = int(input("real part: "))
+        z_imag = int(input("imag part: "))
+        z = create_z(z_real, z_imag)
+        data.append(z)
+
     elif option == "2":
-        # display numbers
-        pass
+        print("The numbers are: ")
+        # print(data)
+
+        for z in data:
+            print(to_str(z), end=" ")  # end is a named Python parameter
+        print("")
+
+        # print(list(map(to_str, data)))
+
+        # for i in range(0, len(data)):
+        #     # range(0,5) -> 0, 1, 2, 3, 4
+        #     print(to_str(data[i]))
     elif option == "0":
         flag = False
         print("bye!")
