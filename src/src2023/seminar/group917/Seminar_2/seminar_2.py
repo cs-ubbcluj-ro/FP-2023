@@ -6,6 +6,8 @@ After the seminar, you will be able to:
         - representation
         - manipulation
 """
+import copy
+
 """
 Problem statement
     A program that manages a list of TO-DO tasks.
@@ -64,11 +66,11 @@ def print_task_list(task_list):
     for task in task_list:
         print('Description:', get_description(task), '| Deadline day:', get_deadline(task))
 
-    #different ways to go through the list
-    #for index in range(len(task_list)):
+    # different ways to go through the list
+    # for index in range(len(task_list)):
     #   task = task_list[index]
     #   print('['+str(index)+']', 'Description: ', get_description(task), 'Deadline day:', get_deadline(task))
-    #for task_index, task in enumerate(task_list):
+    # for task_index, task in enumerate(task_list):
     #   print('['+str(task_index)+']', 'Description: ', get_description(task), 'Deadline day:', get_deadline(task))
 
 
@@ -93,6 +95,42 @@ def add_to_list(task_list, task):
 # b.append(4)
 # print(a)
 # to see what happens :)
+
+def sort_tasks(my_list):
+    """
+    Sorts the task list (we use bubble sort)
+    :param my_list: the list of tasks to be sorted
+    :return: -; the list given as parameter is sorted
+    """
+    # keep track of whether we do any swaps in a pass over the list
+    # assume yes (i.e. list is not sorted) at the beginning
+    swapped = True
+    while swapped:
+        swapped = False
+        for i in range(len(my_list) - 1):
+            if get_deadline(my_list[i]) > get_deadline(my_list[i + 1]):
+                # swap
+                aux = my_list[i]
+                my_list[i] = my_list[i + 1]
+                my_list[i + 1] = aux
+                # This does the same thing (swaps elements)
+                # my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]
+                swapped = True
+
+def copy_list(task_list):
+    #Check out fun_with_copies.py in this folder to
+    #see what other methods to copy a list there are
+    task_list_copy = []
+    for task in task_list:
+        new_task = create_task(get_description(task), get_deadline(task))
+        task_list_copy.append(new_task)
+    return task_list_copy
+
+def sort_tasks_listcopy(task_list):
+    #task_list_copy = copy.deepcopy(task_list)
+    task_list_copy = copy_list(task_list)
+    sort_tasks(task_list_copy)
+    return task_list_copy
 
 
 # data representation
@@ -119,10 +157,11 @@ while True:
     else:
         print("Invalid command. Enter number (between 0-4).")
         continue
+
     if option == 0:
         print_task_list(task_list)
     # also see match-case syntax
-    if option == 1:
+    elif option == 1:
         task = read_task()
         add_to_list(task_list, task)
     elif option == 2:
@@ -136,13 +175,13 @@ while True:
 
     elif option == 3:
         # sort tasks
-        pass
+        #sort_tasks(task_list)
+        sorted_task_list = sort_tasks_listcopy(task_list)
+        print_task_list(sorted_task_list)
     elif option == 4:
         break
     else:
         print('Invalid command.')
-
-
 
 # Working with dictionaries
 # let's define a dict that contains information about persons
@@ -164,7 +203,7 @@ while True:
 #     print('CNP:', person_id)
 #     for person_attribute, attribute_value in person_information.items():
 #         print(person_attribute, attribute_value)
-#for person_id in persons:
+# for person_id in persons:
 #   ...
-#persons.keys() -> all the keys in my dictionary
-#persons.values() -> all values in my dictionary
+# persons.keys() -> all the keys in my dictionary
+# persons.values() -> all values in my dictionary
