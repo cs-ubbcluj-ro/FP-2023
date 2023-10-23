@@ -18,6 +18,37 @@
     d. Driver & test functions
 """
 
+
+def generate_list(n: int) -> list:
+    """
+    Generate a sorted list of integers
+    :param n: List length
+    :return: The ascending sorted list
+    """
+    pass
+
+
+def binary_search(data: list, key: int, left: int, right: int) -> int:
+    """
+    Search for the key in the list
+    :param data: Ascending sorted list to search the key in
+    :param key: The int value to search
+    :param left: low bound for binary search
+    :param right: high bound for binary search
+    :return: Index of key in list, -1 if key is not found
+    """
+    pass
+
+def exponential_search(data:list,key:int) -> int:
+    """
+    Exponential search key in data
+    :param data: List of ascending sorted numbers
+    :param key: int value to search for
+    :return: The position of key, or -1 if key not in list
+    """
+    pass
+
+
 """
 3. Calculate the r-th root of a given number x with a given precision p
 """
@@ -75,7 +106,7 @@ def bkt_rec(x, n):
                 bkt_rec(x[:], n)
 
 
-bkt_rec([], 4)
+# bkt_rec([], 4)
 
 """
 6. Change the code for generating the permutation above to work for the n-Queen problem
