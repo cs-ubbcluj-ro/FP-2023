@@ -18,40 +18,90 @@
     d. Driver & test functions
 """
 
+# Alupei Alexandru
+import random
+
 
 def generate_list(n: int) -> list:
     """
-    Generate a sorted list of integers
-    :param n: List length
+    Generate a list of integers
+    :param n: list length
     :return: The ascending sorted list
     """
-    pass
+
+    return sorted([random.randint(0, 100) for i in range(0, n)])
 
 
 def binary_search(data: list, key: int, left: int, right: int) -> int:
     """
-    Search for the key in the list
-    :param data: Ascending sorted list to search the key in
+    Search for the key in the sorted list
+    :param data: List to search the key in
     :param key: The int value to search
     :param left: low bound for binary search
     :param right: high bound for binary search
     :return: Index of key in list, -1 if key is not found
     """
-    pass
+    if right >= left:
+        m = (right + left) // 2
+        if key < data[m]:
+            return binary_search(data, key, left, m - 1)
+        elif key > data[m]:
+            return binary_search(data, key, m + 1, right)
+        else:
+            return m
+    else:
+        return -1
 
-def exponential_search(data:list,key:int) -> int:
+
+def exponential_search(data: list, key: int) -> int:
     """
-    Exponential search key in data
+    Exponential search key in list
     :param data: List of ascending sorted numbers
-    :param key: int value to search for
-    :return: The position of key, or -1 if key not in list
+    :param key: Int value to search for
+    :return: The position of key or -1 if key is not found
+    """
+    if len(data) == 0:
+        return -1
+    if data[0] > key:
+        return -1
+    if data[-1] < key:
+        return -1
+
+    if data[0] == key:
+        return 0
+    i = 1
+    while i < len(data) and data[i] < key:
+        i = i * 2
+    return binary_search(data, key, i // 2, min(i, len(data) - 1))
+
+
+# data = generate_list(20)
+# print(data)
+# print(exponential_search(data, data[10]))
+
+"""
+3. Calculate the r-th root of a given number x with a given 
+    precision p
+"""
+
+
+# x = 2
+# r = 10
+# p = 0.001
+# # res = ?
+# print((x ** 0.1) ** 10)
+
+# 2 - 0.001 <= res ^ 10 <= 2 + 0.001
+
+def root_r(x: int, r: int, p: float) -> float:
+    """
+    Return the r-th root of number x with precision p
+    :param x: Number to find the r-th root for
+    :param r: Value of root
+    :param p: Precision
     """
     pass
 
-
-"""
-3. Calculate the r-th root of a given number x with a given precision p
-"""
 
 """
 4. Calculate the maximum subarray sum (subarray = elements having continuous indices)
