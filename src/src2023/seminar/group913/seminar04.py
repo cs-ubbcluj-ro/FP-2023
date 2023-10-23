@@ -16,7 +16,44 @@
     b. Implement exponential search
     c. Implement binary search
     d. Driver & test functions
+    
+    How does exponential search work?
+    - we are searching for element <x> in a sorted list
+    - take elements in form of 2 ^ i (2^1, 2^2, 2^3, ...) 
+    - compare searched element (x) with el. at 2^i until 
+                -> end of list
+                -> data[2^i] > x => binary search between x[2^(i-1)] and x[2^i] 
 """
+
+
+def generate_list(n: int) -> list:
+    """
+    Generate a random, increasing list
+    :param n: List length
+    :return: The list
+    """
+    pass
+
+
+def binary_search(data: list, key: int, left: int, right: int) -> int:
+    """
+    Implement binary search between bound left and right
+    :param data: Searched list
+    :param key: Key we are searching for
+    :return: Position where key was found, -1 if key not in list
+    """
+    pass
+
+
+def expo_search(data: list, key: int) -> int:
+    """
+    Exponential search in given list
+    :param data: The list we are searching
+    :param key: The search key
+    :return: Position where key was found, -1 if key not in list
+    """
+    pass
+
 
 """
 3. Calculate the r-th root of a given number x with a given precision p
@@ -75,7 +112,7 @@ def bkt_rec(x, n):
                 bkt_rec(x[:], n)
 
 
-bkt_rec([], 4)
+# bkt_rec([], 4)
 
 """
 6. Change the code for generating the permutation above to work for the n-Queen problem
