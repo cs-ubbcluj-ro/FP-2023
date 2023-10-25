@@ -93,15 +93,37 @@ def exponential_search(data: list, key: int) -> int:
 
 # 2 - 0.001 <= res ^ 10 <= 2 + 0.001
 
+# Banyai Endre
 def root_r(x: int, r: int, p: float) -> float:
     """
     Return the r-th root of number x with precision p
     :param x: Number to find the r-th root for
     :param r: Value of root
     :param p: Precision
+    :return: the r-th root
     """
-    pass
+    # x = 3
+    # r = 2
+    # TODO Handle case when 0 < x <= 1
+    min_num = 0
+    max_num = max(1, x)
+    mid = (min_num + max_num) / 2
+    power_r = mid ** r
+    while abs(power_r - x) > p:
+        # print(mid)
+        if x >= 1:
+            if power_r < x:
+                min_num = mid
+            else:
+                max_num = mid
+        mid = (min_num + max_num) / 2
+        power_r = mid ** r
+    return mid
 
+
+# print(root_r(2, 10, 1))
+# print(root_r(2, 10, 0.1))
+# print(root_r(2, 10, 0.0001))
 
 """
 4. Calculate the maximum subarray sum (subarray = elements having continuous indices)
@@ -114,6 +136,20 @@ def root_r(x: int, r: int, p: float) -> float:
 
 """
     Backtracking
+    
+    We have a template that we need to customize.
+        1. How is the search space represented (values in array X)
+        2. When is array X consistent (consistent function)
+            -> True iff we can reach a solution strictly by adding values
+        3. When do we have a solution
+            -> depends on the problem
+            
+    Permutations of 4
+    X is a sequence of values in [1, 4]
+    X = [ 1 2 3 4 ] - solution
+    X = [ 1 2 4 3 ] - solution
+    X = [ 1 3 2 4 ] - solution
+            
 """
 
 """
@@ -156,16 +192,33 @@ def bkt_rec(x, n):
                 bkt_rec(x[:], n)
 
 
-# bkt_rec([], 4)
+bkt_rec([], 4)
 
 """
 6. Change the code for generating the permutation above to work for the n-Queen problem
+
+    https://medium.com/swlh/how-many-solutions-does-the-n-queens-problem-have-e8da5d45a34c
+    X = [ 1 7 4 6 8 2 5 3 ]
+    - if the values of X are unique => queens don't attack on row
+    - difference between array indices and corresponding array values cannot be equal
 """
 
 """
 A Latin square is an n × n square filled with n different symbols, each occurring exactly once in each row and exactly 
 once in each column
 
+    A B C
+    C A B
+    B C A
+    
+    X = [ A B C C A B B C A ]
+    
+    when is array X consistent?
+        -> values on current row must be unique (%3 !?)
+        -> X[len(X)-1::-3] --> slice going down, 3 values at a time
+    solution
+        -> len(X) == 9 (nˆ2 generally)
+     
 7. Generate all the N x N Latin squares for a given number N. 
 
 8. Generate all reduced N x N Latin squares for a given number N. In a reduced Latin square, the elements of the first 
