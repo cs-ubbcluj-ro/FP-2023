@@ -411,14 +411,25 @@ test_max_sum_dp()
 
 """
     Backtracking
+    
+    For backtracking, we need to:
+    
+        - figure out how to represent the candidate solution(s)  
+            e.g. for permutations of n, we take a list of size n, each element in list can take values from 0,.., n-1 (or 1,..,n)
+                 X = [x0, x2, .., xn-1] where xi takes values from {0,1,2,..,n-1}
+        - determine what a consistent solution looks like
+            - a candidate solution Xc = [x0,..,xk] is consistent if we can extend it so that we obtain a solution to the problem
+            - e.g. the partial solution [0] is consistent in terms of permutations (no duplicates) -> can build further to obtain solution
+                                        [0, 1, 2] is consistent in terms of permutations (no duplicates) -> can build further to obtain solution
+                                        [0, 1, 1] is not consistent -> cannot extend it to obtain valid permutation
+        - determine when we found a solution:
+                e.g. when we have candidate solution Xc = [x0,..,xk] consistent and k=n-1 
 
-    Backtracking -- depth-first search
-    we need to customize 2 functions in the generic algorithm:
-        - consistent => True iff we can extend what we have up to a solution
-        - solution => True iff we found a solution
-
-    permutations of 4  
-    X = [ 0 2 1 3 ]   
+    Formally, for permutations:
+    
+    Candidate solution: X = [x0, x1,. .. , xk] , xi ∈ {0,1,..,N− 1}
+    Consistent function: X = [x0, x1,. .. , xk] is consistent if  xi ≠ xj for ∀ i ≠ j
+    Solution function: X = [x0, x1,. .. , xk] is a solution if is consistent and k= n − 1
     
     
 """
@@ -469,8 +480,65 @@ def bkt_rec(x, n):
 """
 6. Change the code for generating the permutation above to work for the n-Queen 
    problem
+   
+   n-Queen problem: nxn board, place n queens in such a way that they don't attack each other
+                    attack = they are on same line, column or diagonal
+    
+   How to represent the candidate solution?
+   
+   Board: 
+   
+   n=8
+   
+   L_0: - - - - - Q - -
+   L_1: - - - - - - - Q
+   L_2: - - - - - - Q - 
+   L_3: - - - - Q - - -
+   L_4: - Q - - - - - -    
+   L_5: Q - - - - - - - 
+   L_6: - - Q - - - - - 
+   l_7: - - - Q - - - -
+   
+   Candidate solution: X = [5, 7, 6, 4, 1, 0, 2, 3] 
+        -at index 0 we store the column for the queen on line L_index
+   Consistency:
+        -queens don't attack each other
+            -check that we don't have two queens on the same line: taken care of by the representation
+            -check that we don't have two queens on the same column: no duplicate values in candidate solutions
+            -check that we don't have queens on a diagonal: for two queens, the difference between their respective 
+                    line indices should not be the same as the difference between their column indices
+   Solution:
+        -we have placed all n queens on the board (and the full solution is consistent)        
+    
+    
+    Formally:
+    
+    Candidate solution: X = [x0, x1,. .. , xk] , xi ∈ (0,1,. .,n-1)
+                        (i , xi) ∀ i ∈ (0,1,. . ,k) is position of a queen on the board
+    Consistency function:
+        X = [x0, x1,. .. , xk] consistent if queens do not attack each other
+        xi ≠ xj for ∀ i ≠ j (no two queens on same column)
+        ∣i − j∣ ≠ ∣xi − xj∣ ∀ i≠ j (diagonal check)
+    
+    Solution function:
+        X = [x0, x1,. .. , xk] is solution if consistent and k = n-1
+    
+"""
 
-7. Generate all the N x N Latin squares for a given number N. 
+"""
+7. Generate all the N x N Latin squares for a given number N.
+
+Latin square: n × n array filled with n different symbols, each occurring exactly 
+        once in each row and exactly once in each column
+
+        A	B	C
+        C	A	B
+        B	C	A
+
+Repeat the same process as for the previous two problems:
+    --figure out how to represent solution
+    --what the consistency function should check
+    --what the solution function should look like & then customize the provided backtracking template
 
 8. Generate all reduced N x N Latin squares for a given number N. In a reduced Latin square, the elements of the first 
 row and column are sorted.
