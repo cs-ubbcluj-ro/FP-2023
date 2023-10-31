@@ -193,7 +193,7 @@ def max_sum_dc(list: list, left: int, right: int):
 
     m = (left + right) // 2
 
-    leftmax = max_sum_dc(list, 0, m)
+    leftmax = max_sum_dc(list, left, m)
     rightmax = max_sum_dc(list, m + 1, right)
 
     crt_sum = 0
