@@ -14,8 +14,8 @@ def generate_list(n: int) -> list:
 
 
 """
-Complexity? 
-T(n) = ...
+Time complexity? 
+T(n) = n^2
 """
 
 
@@ -48,8 +48,10 @@ def max_sum_naive(array: list) -> (int, int, int):
 
 
 """
-Complexity?
-T(n) = ...
+Time complexity?
+T(n) = 2T(n/2) + n
+     = ...
+     O(nlogn)
 """
 
 
@@ -81,17 +83,18 @@ def max_sum_dc(array: list, left: int, right: int):
 
 
 """
-Complexity?
-T(n) = ...
+Time complexity?
+T(n) = n
 """
 
 
 def max_sum_dp(arr):
     max_sum = -math.inf
-    crt_sum = arr[0]
+    dp = [0] * len(arr)
+    dp[0] = arr[0]
     for i in range(1, len(arr)):
-        crt_sum = max(arr[i], crt_sum + arr[i])
-        max_sum = max(crt_sum, max_sum)
+        dp[i] = max(arr[i], dp[i-1] + arr[i])
+        max_sum = max(dp[i], max_sum)
 
     return max_sum
 
