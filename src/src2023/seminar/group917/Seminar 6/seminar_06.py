@@ -77,42 +77,6 @@ def get_rect_coordinates(rectangle):
     return x1, x2, y1, y2
 
 
-def check_equal(rectangle1, rectangle2):
-    """
-    Check if two rrectangles are the same
-    :param rectangle1:
-    :param rectangle2:
-    :return: True if they are the same, False otherwise
-    """
-    x1_1, y1_1, x2_1, y2_1 = get_rect_coordinates(rectangle1)
-    x1_2, y1_2, x2_2, y2_2 = get_rect_coordinates(rectangle2)
-
-    if x1_1 == x1_2 and x2_1 == x2_2 and y1_1 == y1_2 and y2_1 == y2_2:
-        return True
-    return False
-
-
-# Serban Dragos
-def print_menu():
-    print("1. Add")
-    print("2. Show list of rectangles")
-    print("3. Exit")
-
-
-# Voda Ioan
-def verify_if_exist(rectangle_list, rectangle):
-    """
-    Checks if there exists a rectangle with same coordinates in the list
-    :param rectangle_list: the list we are searching
-    :param rectangle: the rectangle we are searching
-    :return: True if exists, False otherwise
-    """
-    for curent_rectangle in rectangle_list:
-        if check_equal(rectangle, curent_rectangle):
-            return True
-    return False
-
-
 def get_bottom_left_point(rectangle):
     """
     Gets coordinates of the point at bottom left corner of the rectangle
@@ -129,6 +93,53 @@ def get_top_right_point(rectangle):
     :return: list of two elements in the form (x,y)
     """
     return rectangle["top-right"]
+
+
+def check_equal(rectangle1, rectangle2):
+    """
+    Check if two rrectangles are the same
+    :param rectangle1:
+    :param rectangle2:
+    :return: True if they are the same, False otherwise
+    """
+    x1_1, y1_1, x2_1, y2_1 = get_rect_coordinates(rectangle1)
+    x1_2, y1_2, x2_2, y2_2 = get_rect_coordinates(rectangle2)
+
+    if x1_1 == x1_2 and x2_1 == x2_2 and y1_1 == y1_2 and y2_1 == y2_2:
+        return True
+    return False
+
+
+
+"""
+Functions that manage the list of rectangles
+"""
+# Serban Dragos
+def to_str(rectangle):
+    # Current form: I have a chance of messing up the order of
+    # my coordinates
+    # Helpful: create getter for x1, x2, y1, y2
+    # Or at least for the 2 points separately
+    x_bottom_left, y_bottom_left = get_bottom_left_point(rectangle)
+    x_top_right, y_top_right = get_top_right_point(rectangle)
+    return Fore.BLUE + "Point 1 (bottom-left): (" + str(x_bottom_left) + ', ' + str(
+        y_bottom_left) + ')' + Style.RESET_ALL + ' | ' + Fore.MAGENTA + "Point 2 (top-right): (" + str(
+        x_top_right) + ', ' + str(
+        y_top_right) + ')' + Style.RESET_ALL
+
+
+# Voda Ioan
+def verify_if_exist(rectangle_list, rectangle):
+    """
+    Checks if there exists a rectangle with same coordinates in the list
+    :param rectangle_list: the list we are searching
+    :param rectangle: the rectangle we are searching
+    :return: True if exists, False otherwise
+    """
+    for curent_rectangle in rectangle_list:
+        if check_equal(rectangle, curent_rectangle):
+            return True
+    return False
 
 
 def add_rectangle_to_list(rectangle_list, rectangle):
@@ -163,6 +174,17 @@ def generate_rectangle_list(n: int) -> list:
     return rectangle_list
 
 
+"""
+UI functions
+"""
+
+# Serban Dragos
+def print_menu():
+    print("1. Add")
+    print("2. Show list of rectangles")
+    print("3. Exit")
+
+
 def add_ui(rectangle_list):
     """
     Reads the necessary data for creating a Rectangle from the user
@@ -186,21 +208,6 @@ def add_ui(rectangle_list):
     #     print("ERROR:" + str(e))
 
     # print("This is executed after the try/except block.")
-
-
-# Serban Dragos
-# Serban Dragos
-def to_str(rectangle):
-    # Current form: I have a chance of messing up the order of
-    # my coordinates
-    # Helpful: create getter for x1, x2, y1, y2
-    # Or at least for the 2 points separately
-    x_bottom_left, y_bottom_left = get_bottom_left_point(rectangle)
-    x_top_right, y_top_right = get_top_right_point(rectangle)
-    return Fore.BLUE + "Point 1 (bottom-left): (" + str(x_bottom_left) + ', ' + str(
-        y_bottom_left) + ')' + Style.RESET_ALL + ' | ' + Fore.MAGENTA + "Point 2 (top-right): (" + str(
-        x_top_right) + ', ' + str(
-        y_top_right) + ')' + Style.RESET_ALL
 
 
 def show_rectangles(rectangle_list):
