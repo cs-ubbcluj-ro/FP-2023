@@ -1,0 +1,24 @@
+Implement a simple Tic-Tac-Toe game with a console interface.
+
+1) Board is 3x3, to user 1-indexed
+2) User always starts, with symbol X; Computer plays with O
+3) User should be able to place a given X on the board by saying:
+        play [row] [column] , which places an X on the given row and column
+
+        e.g. play 1 2 places an X on the first row, second column
+4) Computer plays random, valid moves
+5) Check for wins/draws, stop game
+5) Illegal game play is signaled using error messages
+    --placement outside the board
+    --placement in a position where there is something already
+
+Print the board after every move (either computer's or human's)
+
+Use functions that do only one thing - only computations, or only printing.
+Pass information through parameters.
+Use exception mechanisms to handle illegal game play.
+Separate program into modules.
+
+SEMINAR 8: Transform Seminar 8 project to use classes.
+           Implement two different strategies that the computer player can have.
+           
