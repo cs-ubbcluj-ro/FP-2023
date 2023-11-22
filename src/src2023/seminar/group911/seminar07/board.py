@@ -102,6 +102,8 @@ def to_str(board) -> str:
 
 # in the UI module
 b = create_board()
+# b[1][1] = "abcd"
 print(to_str(b))
+print(type(b))
 
 # print("|".join(["X","O","X"]))

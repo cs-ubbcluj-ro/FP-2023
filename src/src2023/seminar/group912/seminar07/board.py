@@ -125,9 +125,13 @@ def test_move_board():
 
 
 if __name__ == "__main__":
-    test_move_board()
+    # test_move_board()
 
     b = create_board()
+    b[6] = 'abc'
+
+    print(type(b))
+
     move_board(b, 1, 1, 'x')
-    move_board(b, 0, 40, 'o')
+    # move_board(b, 0, 40, 'o')
     print(to_str(b))

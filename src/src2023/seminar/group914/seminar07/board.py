@@ -159,7 +159,17 @@ def test_board():
 
 # test_board()
 #
-# b = create_board()
+
+"""
+1. How do I know this represents a board? 
+2. You can modify the board from anywhere
+3. board var needs to be carried everywhere :(
+"""
+
+b = create_board()
+b[1][1] = "abc"
+print(type(b))
+
 # move(b, 1, 1, 1)
 # move(b, 0, 0, 0)
 # move(b, 2, 2, 1)
