@@ -3,7 +3,7 @@ import random
 
 def getRndLetter():
     letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    return letters[random.randint(0, len(letters))]
+    return letters[random.randint(0, len(letters) - 1)]
 
 
 def generateLicensePlate():

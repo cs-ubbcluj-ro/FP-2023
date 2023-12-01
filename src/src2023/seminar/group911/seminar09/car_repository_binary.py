@@ -1,4 +1,5 @@
 from src2023.seminar.group911.seminar09.car import Car, getNCars
+import pickle
 
 
 class RepositoryError(Exception):
@@ -10,10 +11,17 @@ class RepositoryError(Exception):
     pass
 
 
-class CarRepositoryMemory:
+class CarRepositoryBinary:
     def __init__(self):
         # cars are stored in this dict
         self.__data = {}  # keys are license plates
+        # load all cars from the binary file
+        try:
+            self.__load_file()
+        except FileNotFoundError:
+            print("Oopsie!")
+        except OSError:
+            raise RepositoryError()
 
     def add(self, car: Car):
         """
@@ -23,9 +31,11 @@ class CarRepositoryMemory:
         Raise RepositoryError if car with license plate
         already in repo
         """
+        # FIXME a bug here
         if car.license_plate in self.__data:
             raise RepositoryError
         self.__data[car.license_plate] = car
+        self.__save_file()
 
     def remove(self, license_plate: str) -> Car:
         """
@@ -37,9 +47,21 @@ class CarRepositoryMemory:
         if license_plate in self.__data:
             car = self.__data[license_plate]
             del self.__data[license_plate]
+            self.__save_file()
             return car
         else:
             raise RepositoryError
+
+    def __save_file(self):
+        # TODO Call each time the dict of cars is updated
+        file = open("cars.data", "wb")  # w - write, b - binary
+        pickle.dump(self.__data, file)
+        file.close()
+
+    def __load_file(self):
+        file = open("cars.data", "rb")  # r - read, b - binary
+        self.__data = pickle.load(file)
+        file.close()
 
     @property
     def all(self) -> list:
@@ -57,38 +79,28 @@ class CarRepositoryMemory:
         return len(self.__data.values())
 
 
-def test_CarRepositoryMemory():
-    repo = CarRepositoryMemory()
-    assert len(repo) == 0
+if __name__ == "__main__":
 
-    # try to add some cars
-    cars = getNCars(5)  # hope license plates are unique!
-    repo_len = 0
-    for c in cars:
-        repo.add(c)
-        repo_len += 1
-        assert len(repo) == repo_len
+    repo = CarRepositoryBinary()
+    for car in getNCars(5):
+        repo.add(car)
 
-    # try to add a duplicate car
-    try:
-        repo.add(cars[0])
-        assert False  # car must not be added
-    except RepositoryError:
-        assert True  # we expect an exception here
+    for c in repo.all:
+        print(c)
 
-    # try to remove cars
-    repo_len = 5
-    for c in cars:
-        assert repo.remove(c.license_plate) == c
-        repo_len -= 1
-        assert len(repo) == repo_len
+    # cars = getNCars(10)
+    # for c in cars:
+    #     print(c)
 
-    # try to remove inexisting car
-    try:
-        repo.remove(cars[0].license_plate)
-        assert False  # we expected an error
-    except RepositoryError:
-        assert True  # error was raised, everything ok
+    # 1. Write to a binary file using Pickle
+    # file = open("cars.data","wb") # w - write, b - binary
+    # pickle.dump(cars,file)
+    # file.close()
 
-
-test_CarRepositoryMemory()
+    # 2. Read from binary file
+    # file = open("cars.data", "rb")  # r - read, b - binary
+    # my_cars = pickle.load(file)
+    # file.close()
+    #
+    # for c in my_cars:
+    #     print(c)
