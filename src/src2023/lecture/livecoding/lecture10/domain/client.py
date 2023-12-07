@@ -1,16 +1,14 @@
 # Ciupe Marius Daniel
 import random
 
+from src2023.lecture.livecoding.lecture10.domain.idobject import IdObject
 
-class Client:
-    def __init__(self, id: int, name: str):
-        if not isinstance(id, int):
-            raise TypeError("Id cannot be non-integer.")
 
+class Client(IdObject):
+    def __init__(self, _id: int, name: str):
+        super().__init__(_id)
         if not isinstance(name, str):
             raise TypeError("Name must be of type str.")
-
-        self.__id = id
         self.__name = name
 
     def __str__(self):
@@ -18,10 +16,6 @@ class Client:
 
     def __eq__(self, other):
         return self.id == other.id
-
-    @property
-    def id(self):
-        return self.__id
 
     @property
     def name(self):
@@ -36,3 +30,6 @@ def generate_clients(n: int) -> list:
     for i in range(n):
         result.append(Client(_id + i, random.choice(family_names) + " " + random.choice(given_names)))
     return result
+
+# for c in generate_clients(5):
+#     print(c)

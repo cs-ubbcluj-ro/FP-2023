@@ -3,13 +3,12 @@ from datetime import date, timedelta
 
 from src2023.lecture.livecoding.lecture10.domain.car import Car, generate_cars
 from src2023.lecture.livecoding.lecture10.domain.client import Client, generate_clients
+from src2023.lecture.livecoding.lecture10.domain.idobject import IdObject
 
 
-class Rental:
-    def __init__(self, id: int, car: Car, client: Client, start: date, end: date):
-        if not isinstance(id, int) or id < 0:
-            raise TypeError("Id must be a positive integer.")
-
+class Rental(IdObject):
+    def __init__(self, _id: int, car: Car, client: Client, start: date, end: date):
+        super().__init__(_id)
         if not isinstance(car, Car):
             raise TypeError("Car is not... a car.")
 
@@ -19,7 +18,6 @@ class Rental:
         if not isinstance(start, date) or not isinstance(end, date):
             raise TypeError("The dates must be of type date.")
 
-        self.__id = id
         self.__car = car
         self.__client = client
         self.__start = start
@@ -28,12 +26,11 @@ class Rental:
     def __str__(self):
         return f'ID: {self.id}\nCar: {self.car}\nClient: {self.client}\nStart Date: {self.start}\nEnd Date: {self.end}'
 
-    def __len__(self):
-        return (self.end - self.start).total_seconds() // (3600 * 24)
+    def __repr__(self):
+        return str(self)
 
-    @property
-    def id(self):
-        return self.__id
+    def __len__(self):
+        return (self.end - self.start).days + 1
 
     @property
     def car(self):
@@ -70,9 +67,8 @@ def generate_rentals(n):
         # Create a rental object
         rentals.append(Rental(_id + i, car, client, start_date, end_date))
 
-    return rentals
+    return cars, clients, rentals
 
-
-for r in generate_rentals(100):
-    print(r)
-    print("\n")
+# for r in generate_rentals(100):
+#     print(r)
+#     print("\n")

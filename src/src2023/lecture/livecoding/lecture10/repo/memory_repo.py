@@ -1,11 +1,11 @@
-from src2023.lecture.livecoding.lecture10.domain.car import Car
+from src2023.lecture.livecoding.lecture10.domain.idobject import IdObject
 
 
 class RepositoryError(Exception):
     pass
 
 
-class CarRepoIterator:
+class RepoIterator:
     def __init__(self, data: list):
         self.__data = data
         self.__pos = -1
@@ -18,50 +18,54 @@ class CarRepoIterator:
         return self.__data[self.__pos]
 
 
-class CarMemoryRepository:
+class MemoryRepository:
     def __init__(self):
-        # key is car license plate, value is car object
+        # key is id property value of IdObject, value is object itself
         self.__data = {}
 
-    def add(self, car: Car):
+    def add(self, object: IdObject):
         """
         Add a new car to repository
-        :param car:
+        :param object:
         :return:
         Raise RepositoryError if car with license plate already in repo, in which case car
         is not added
         """
-        if car.license in self.__data.keys():
+        if not isinstance(object, IdObject):
+            raise TypeError("Can only add IdObject instances")
+
+        if object.id in self.__data.keys():
             raise RepositoryError("Car already exists")
 
-        self.__data[car.license] = car
+        self.__data[object.id] = object
 
-    def remove(self, license_plate: str) -> Car:
+    def remove(self, _id: int) -> IdObject:
         """
-        Remove car with given license plate from repository
-        :param license_plate:
+        Remove IdObject with given id plate from repository
+        :param _id:
         :return: The car that was removed
         Raise RepositoryError if car with license plate is not in the repository
         """
-        if license_plate not in self.__data.keys():
-            raise RepositoryError("Car doesn't exist.")
+        if self.find(_id) == None:
+            raise RepositoryError("Object doesn't exist.")
+        return self.__data.pop(_id)
 
-        return self.__data.pop(license_plate)
-
-    def find(self, license_plate: str) -> Car:
+    def find(self, _id: int) -> IdObject:
         """
         Find car with given license plate
-        :param license_plate:
+        :param _id:
         :return: Car instance, or None if car with license plate was not found
         """
-        return self.__data[license_plate] if license_plate in self.__data.keys() else None
+
+        # condition ? if True : if False
+        return self.__data[_id] if _id in self.__data.keys() else None
 
     def __iter__(self):
         """
         This is the Iterator design pattern
         https://refactoring.guru/design-patterns/iterator
         """
-        return CarRepoIterator(list(self.__data.values()))
+        return RepoIterator(list(self.__data.values()))
 
     def __getitem__(self, item):
         if item not in self.__data:
@@ -74,3 +78,6 @@ class CarMemoryRepository:
         :return:
         """
         return len(self.__data)
+
+# r = MemoryRepository()
+# r.remove(100)
