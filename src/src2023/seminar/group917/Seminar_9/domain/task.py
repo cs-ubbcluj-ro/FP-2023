@@ -5,13 +5,13 @@ from colorama import Fore, Style
 class Task:
 
     def __init__(self, id, descriere, zi_deadline, luna_deadline, status):
-        # Adaugat id la ultimul seminar
         self.__id = id
         self.__descriere = descriere
         self.__zi_deadline = zi_deadline
         self.__luna_deadline = luna_deadline
         self.__status = status
 
+    #Extra-reding: @property decorator
     def get_descriere(self):
         return self.__descriere
 

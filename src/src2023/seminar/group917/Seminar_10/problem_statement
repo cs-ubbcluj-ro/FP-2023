@@ -1,0 +1,38 @@
+
+Create an application for task management using a console based user interface.
+The application must allow keeping records of the company’s list of persons, list of tasks and the assignments of tasks to persons.
+The application must allow its users to manage persons, tasks and assignments in the following ways:
+
+Tasks:
+    Add a task. Each task has a unique ID, and is characterized by a description, by a deadline date, and by a status.
+    Remove a task.
+    Filter tasks based on substring contained in description.
+    Print report of existing tasks by date.
+    *Search for tasks based on deadline day, month, or status.
+        e.g. search_tasks deadline_day = 12, deadline_month, status = pending
+             search_tasks deadline_day = 16, status = pending
+             search_tasks status = in-progress
+    Provide validation for tasks and corresponding operations.
+
+Persons
+    Add a person. Each person has a unique CNP, and also has a name.
+    Remove a person.
+    *Update person.
+    Provide validation for persons and corresponding operations.
+
+Assignments
+    [A person can be assigned any number of tasks, and a task can be assigned to any number of people. An evaluation of
+        the task must also be provided (a float number between 1 and 10).]
+    Add assignment.
+    Remove assignment.
+    Provide validation for assignments and corresponding operations.
+
+
+*Statistics
+    The first N persons in terms of the number of tasks assigned.
+
+*The application must have support for unlimited undo/redo with cascading.
+
+Write PyUnit tests for implemented functionalities. *Determine the coverage of your tests.
+
+Coverage: https://www.jetbrains.com/help/pycharm/running-test-with-coverage.html

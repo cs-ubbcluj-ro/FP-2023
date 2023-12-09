@@ -1,6 +1,6 @@
 import pickle
 
-from src2023.seminar.group917.Seminar_9.exceptions.exceptions import RepositoryError
+from src2023.seminar.group917.Seminar_9.exceptions.exceptions import RepositoryError, DuplicateIDException
 
 
 class TaskFileRepository:
@@ -35,7 +35,7 @@ class TaskFileRepository:
         """
 
         if task.get_id() in self.__data:
-            raise RepositoryError("Exista deja task cu acest id.")
+            raise DuplicateIDException()
         self.__data[task.get_id()] = task
         self.__save_to_file()
 

@@ -1,5 +1,7 @@
 from colorama import Fore, Style
 
+from src2023.seminar.group917.Seminar_9.exceptions.exceptions import DuplicateIDException, RepositoryError
+
 
 class Console:
     def __init__(self, controller):
@@ -30,9 +32,10 @@ class Console:
             print(Fore.GREEN + "SUCCES: " + Style.RESET_ALL + 'Stergere efectuata cu succes:')
             print('Task-ul', str(deleted_task), 's-a sters cu succes.')
 
-        except Exception as e:
+        except ValueError as e:
             print(Fore.RED + "EROARE: " + Style.RESET_ALL + str(e))
-
+        except RepositoryError as v:
+            print(str(v))
     def add_task_ui(self):
         id = input("Introduceti id:")
         descriere = input("Introduceti descrierea:")
