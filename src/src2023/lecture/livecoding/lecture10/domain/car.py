@@ -1,9 +1,12 @@
 import random
 
+from src2023.lecture.livecoding.lecture10.domain.idobject import IdObject
 
-class Car:
+
+class Car(IdObject):
+    # class Car inherits from class IdObject
     def __init__(self, _id, licence, make, model, color):
-        self.__id = _id
+        super().__init__(_id)
         self.__license_plate = licence
         self.__make = make
         self.__model = model
@@ -16,10 +19,6 @@ class Car:
         if not isinstance(other, Car):
             return False
         return self.license == other.license
-
-    @property
-    def id(self):
-        return self.__id
 
     @property
     def license(self):
@@ -62,5 +61,9 @@ def generate_cars(n: int) -> list:
     return car_list
 
 
-for c in generate_cars(5):
-    print(c)
+# for c in generate_cars(5):
+#     print(c)
+
+# c = Car(100,"abcd","a","t","r")
+# c.color=4
+# print(c.color)
