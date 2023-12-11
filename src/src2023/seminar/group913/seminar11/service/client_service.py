@@ -1,4 +1,5 @@
 from src2023.seminar.group913.seminar11.domain.client import Client
+from src2023.seminar.group913.seminar11.service.undo_service import FunctionCall, Operation
 
 
 class ClientService:
@@ -19,6 +20,13 @@ class ClientService:
             1. Delete the client
         """
         client = self._repository.delete(client_id)
+
+        """
+        We remember client deletion for undo/redo
+        """
+        fredo = FunctionCall(self._repository.delete, client_id)
+        fundo = FunctionCall(self._repository.store, client)
+        self._undo_service.record(Operation(fundo, fredo))
 
         '''
             2. Delete their rentals
