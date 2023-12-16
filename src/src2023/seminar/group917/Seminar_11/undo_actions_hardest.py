@@ -6,7 +6,7 @@ from repository.task_repository import TaskInMemoryRepository
 from service.assignment_service import AssignmentService
 from service.person_service import PersonController
 from service.task_service import TaskController
-from service.undo_service import UndoService
+from service.undo_service import UndoService, UndoRedoException
 
 
 def undo_example_difficulty_hardest():
@@ -33,7 +33,8 @@ def undo_example_difficulty_hardest():
     assignment_service.create_assignment(1,1,'1100221198732',9)
     assignment_service.create_assignment(2,2,'1100221198732',10)
 
-    print_repo_contents("Added 2 persons and 2 tasks and 2 assignments", person_repository, task_repository, assignment_repository)
+    print_repo_contents("Added 2 persons and 2 tasks and 2 assignments",
+                        person_repository, task_repository, assignment_repository)
 
     person_service.delete_person('1100221198732')
     print_repo_contents("Deleted Santa, should delete all assignments", person_repository, task_repository, assignment_repository)
@@ -64,6 +65,7 @@ def undo_example_difficulty_hardest():
     print_repo_contents("7 Undos. Delete Santa.", person_repository, task_repository,
                         assignment_repository)
 
+    print(undo_service)
     undo_service.redo()
     print_repo_contents("Santa is back!", person_repository, task_repository,
                         assignment_repository)
@@ -91,22 +93,29 @@ def undo_example_difficulty_hardest():
     print_repo_contents("Delete Santa and its assignments", person_repository, task_repository,
                         assignment_repository)
 
+    print(undo_service)
+    #Undo deletion of Santa and subsequent removal of all their assignments
     undo_service.undo()
+    #Undo creation of second assignment
     undo_service.undo()
+    #Undo creation of first assignment
     undo_service.undo()
     print_repo_contents("3 undos laters, should have Santa, but no assignments", person_repository, task_repository,
                         assignment_repository)
 
     person_service.add_person('1101213839533', 'Another elf')
+    print("Santa needed help. Another elf added.")
     try:
         undo_service.redo()
-    except:
-        pass
+        raise ValueError("Should not get here. When another operation is done, redo should not be available anymore.")
+    except UndoRedoException:
+        print("Tried to do redo, but it correctly didn't let me.")
 
-    print_repo_contents("Repos should look the same (+1 person), redos should not have been available", person_repository, task_repository,
+    print(undo_service)
+    print_repo_contents("Repos should look the same (+1 person), redos should not be available", person_repository, task_repository,
                         assignment_repository)
 
-
+    #Undos should still work
     undo_service.undo()
     print_repo_contents("Delete the second elf",
                         person_repository, task_repository,

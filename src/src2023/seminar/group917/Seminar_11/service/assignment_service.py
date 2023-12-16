@@ -25,7 +25,6 @@ class AssignmentService:
 
         task = self.__task_repo.get(id_task)
 
-        print(cnp)
         person = self.__person_repo.get(cnp)
 
         assignment = Assignment(id_assignment, task, person, evaluation)

@@ -34,9 +34,7 @@ class AssignmentInMemoryRepository:
         """
         try:
             assignment_to_del = self.__assignments[assignment_id]
-            print('Got up until this point', assignment_id)
             del self.__assignments[assignment_id]
-            print(self.__assignments)
             return assignment_to_del
         except KeyError:
             raise AssignmentDoesNotExistException()
