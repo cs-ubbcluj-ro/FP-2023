@@ -1,5 +1,16 @@
+from datetime import time
+
+
 class Flight:
-    def __init__(self, flight_id, dep_city, dep_time, arr_city, arr_time):
+    def __init__(self, flight_id: str, dep_city: str, dep_time: time, arr_city: str, arr_time: time):
+        if not isinstance(flight_id, str):
+            raise TypeError("Flight id must be an str")
+        if not isinstance(dep_city, str):
+            raise TypeError("Departure city must be an str")
+        if not isinstance(arr_city, str):
+            raise TypeError("Arrival city must be an str")
+        if not isinstance(dep_time, time) or not isinstance(arr_time, time):
+            raise TypeError("Departure/arrival times must be time instances")
         self.__id = flight_id
         self.__dep_city = dep_city
         self.__dep_time = dep_time
