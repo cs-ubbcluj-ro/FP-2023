@@ -38,4 +38,4 @@ class Flight:
         return self.__arr_time
 
     def __str__(self):
-        return "Flight " + self.id + " departs from " + self.dep_city + " at " + self.dep_time + ", arrives at " + self.arr_city + " at " + self.arr_time
+        return "Flight " + self.id + " departs from " + self.dep_city + " at " + str(self.dep_time) + ", arrives at " + self.arr_city + " at " + str(self.arr_time)

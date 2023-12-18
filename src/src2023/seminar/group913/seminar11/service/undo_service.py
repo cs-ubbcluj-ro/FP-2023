@@ -22,6 +22,21 @@ class Operation:
     def redo(self):
         return self.__fredo()
 
+class CascadedOperation:
+    """
+    this implments the Composite design pattern
+    https://refactoring.guru/design-patterns/composite
+    """
+    def __init__(self, *operations):
+        self.__operations = operations
+
+    def undo(self):
+        for oper in self.__operations:
+            oper.undo()
+
+    def redo(self):
+        for oper in self.__operations:
+            oper.redo()
 
 class UndoError(Exception):
     pass

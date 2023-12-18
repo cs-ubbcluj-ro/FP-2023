@@ -16,3 +16,6 @@ class FlightService:
         self._validator.validate(flight)
         # NOTE Repo does the unique id validation
         self._repo.add(flight)
+
+    def get_all(self):
+        return self._repo.get_all()

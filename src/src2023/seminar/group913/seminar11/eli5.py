@@ -14,6 +14,13 @@ How undo/redo work
     - Undo/redo works globally (no parameters)
     - Redo only works immediately after (at least) an undo
     - Redos are lost when the last operation was not an undo
+
+What to do, what to do:
+    0. git update the FP repository
+    1. run undo_hard.py and see it fails (No more undos)
+    2. CarService.py, line 22 -- insert and update code from ClientService.py,
+    function delete
+    3. undo_hard.py should work according to the printed str's
 """
 
 

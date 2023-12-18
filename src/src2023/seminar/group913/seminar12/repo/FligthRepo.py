@@ -1,4 +1,5 @@
 from src2023.seminar.group913.seminar12.domain.flight import Flight
+from src2023.seminar.group913.seminar12.domain.mytime import mytime
 
 
 class RepoError(Exception):
@@ -13,7 +14,12 @@ class FlightRepo:
         self.__load()
 
     def add(self, flight: Flight):
-        # ...
+        fl = self.find(flight.id)
+
+        if fl is not None:
+            raise RepoError(f"Flight with id {fl.id} already exists!")
+
+        self.__data[flight.id] = flight
         self.__save()
 
     def remove(self, flight_id: str) -> Flight:
@@ -23,16 +29,44 @@ class FlightRepo:
         :return: The deleted flight
         Raise RepoError if flight not found
         """
-        # ...
+        flight = self.find(flight_id)
+
+        if flight is None:
+            raise RepoError(f"Fligh with id {flight_id} does not exist!")
+
+        fl = self.__data.pop(flight_id)
         self.__save()
+        return fl
 
     def __load(self):
-        # TODO implement
-        pass
+        with open("flights.txt", "r") as f:
+            for line in f.readlines():
+                line = line.strip()
+                if line == "":
+                    continue
+                (
+                    flight_id,
+                    dep_city,
+                    dep_time,
+                    arr_city,
+                    arr_time,
+                ) = line.split(",")
+
+                dep_time_hm = dep_time.split(":")
+                dep_time = mytime(int(dep_time_hm[0]), int(dep_time_hm[1]))
+                arr_time_hm = arr_time.split(":")
+                arr_time = mytime(int(arr_time_hm[0]), int(arr_time_hm[1]))
+
+                flight = Flight(flight_id, dep_city, dep_time, arr_city, arr_time)
+
+                self.__data[flight_id] = flight
 
     def __save(self):
-        # TODO implement
-        pass
+        with open("../test/flights.txt", "w") as f:
+            for flight in self.__data.values():
+                f.write(
+                    f"{flight.id},{flight.dep_city},{flight.dep_time},{flight.arr_city},{flight.arr_time}\n"
+                )
 
     def find(self, flight_id: str) -> Flight:
         """
@@ -40,11 +74,6 @@ class FlightRepo:
         :param flight_id: The id of the flight
         :return: The flight object or None if it does not exist
         """
-        # try:
-        #     return self.__data[flight_id]
-        # except KeyError:
-        #     return None
-        # NOTE - Let's avoid creating an exception object
         if flight_id not in self.__data.keys():
             return None
         return self.__data[flight_id]
