@@ -1,7 +1,7 @@
-from src2023.seminar.group913.seminar12.repo.FligthRepo import FlightRepo
-from src2023.seminar.group913.seminar12.services.flight_service import FlightService
-from src2023.seminar.group913.seminar12.services.flight_validator import FlightValidator
-from src2023.seminar.group913.seminar12.ui.console import UI
+from src2023.seminar.group911.seminar12.repo.FligthRepo import FlightRepo
+from src2023.seminar.group911.seminar12.services.flight_service import FlightService
+from src2023.seminar.group911.seminar12.services.flight_validator import FlightValidator
+from src2023.seminar.group911.seminar12.ui.console import UI
 
 repo = FlightRepo()
 validator = FlightValidator()

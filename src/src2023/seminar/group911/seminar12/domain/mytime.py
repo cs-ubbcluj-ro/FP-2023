@@ -9,3 +9,5 @@ class mytime(time):
             # isinstance(other, time) -» True if other is mytime instance
             raise TypeError("Cannot subtract time from " + type(other))
         return abs((self.hour - other.hour) * 60 + self.minute - other.minute)
+
+

@@ -1,4 +1,4 @@
-from src2023.seminar.group913.seminar12.services.flight_service import FlightService
+from src2023.seminar.group911.seminar12.services.flight_service import FlightService
 
 
 class UI:
@@ -10,6 +10,14 @@ class UI:
         print("1. Add flight")
         print("2. Show flights")
         print("0. Exit")
+
+    def __add_flight(self):
+        print("Adding a new flight")
+        flight_id = input("Id: ")
+        flight_dep_city = input("Departure city: ")
+        flight_dep_time = input("Departure time (hh:mm): ")
+        flight_arr_city = input("Arrival city: ")
+        flight_arr_time = input("Arrival time (hh:mm): ")
 
     def __display_flights(self):
         print("-= All flights =-")

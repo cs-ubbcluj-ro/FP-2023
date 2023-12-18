@@ -1,5 +1,5 @@
-from src2023.seminar.group913.seminar12.domain.flight import Flight
-from src2023.seminar.group913.seminar12.domain.mytime import mytime
+from src2023.seminar.group911.seminar12.domain.flight import Flight
+from src2023.seminar.group911.seminar12.domain.mytime import mytime
 
 
 class RepoError(Exception):
