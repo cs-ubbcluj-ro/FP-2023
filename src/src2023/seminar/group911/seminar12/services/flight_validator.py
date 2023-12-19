@@ -16,7 +16,9 @@ class FlightValidator:
         errors = []
         if flight.dep_city == flight.arr_city:
             errors.append("Flight should arrive at different airport")
-        if not 15 <= flight.arr_time - flight.dep_time <= 90:
+        if flight.dep_time > flight.arr_time:
+            errors.append("Flight departure time after arrival time")
+        elif not 15 <= flight.arr_time - flight.dep_time <= 90:
             errors.append("Flights must be between 15 and 90 minutes!")
         if len(errors) > 0:
             raise ValidationError(errors)
