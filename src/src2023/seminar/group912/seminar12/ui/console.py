@@ -17,6 +17,8 @@ class UI:
         print("Flight menu:")
         print("1. Add flight")
         print("2. Show flights")
+        print("5. Longest no-fly time intervals")
+        print("6. Flights allowed on backup radar")
         print("0. Exit")
 
     def __input(self, message):
@@ -75,6 +77,18 @@ class UI:
         for flight in self.__service.get_all():
             print(flight)
 
+    def __determine_longest_no_flight_intervals(self):
+        print("-= Longest no-fly intervals =-")
+        for interval in self.__service.determine_longest_no_flight_intervals():
+            print(interval)
+
+    def __maximum_number_of_backup_flights(self):
+        print("Flights allowed to proceed using backup radar")
+        # 05:45 | 06:40 | RO650 | Cluj - Bucuresti
+        for f in self.__service.determine_maximum_number_of_backup_flights():
+            # print(str(f.dep_time) + " | " + str(f.arr_time) + " | " + f.id + " | " + f.dep_city + " - " + f.arr_city)
+            print(f"{f.dep_time} | {f.arr_time} | {f.id} | {f.dep_city} - {f.arr_city}")
+
     def start(self):
         while True:
             try:
@@ -85,6 +99,10 @@ class UI:
                     self.__add_flight()
                 elif opt == "2":
                     self.__display_flights()
+                elif opt == "5":
+                    self.__determine_longest_no_flight_intervals()
+                elif opt == "6":
+                    self.__maximum_number_of_backup_flights()
                 elif opt == "0":
                     print("Goodbye")
                     return
