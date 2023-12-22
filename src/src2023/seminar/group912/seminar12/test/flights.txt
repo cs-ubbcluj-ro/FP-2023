@@ -20,6 +20,3 @@ XL897,TgMures,08:55:00,Oradea,09:30:00
 XL898,Oradea,20:45:00,TgMures,21:25:00
 LH012,Iasi,14:35:00,Oradea,15:35:00
 LH013,Oradea,17:00:00,Iasi,18:10:00
-FG555,Tulcea,09:45:00,Iasi,10:34:00
-RT555,Oradea,13:00:00,Zalau,12:00:00
-UU009,Galati,12:34:00,Iasi,12:59:00

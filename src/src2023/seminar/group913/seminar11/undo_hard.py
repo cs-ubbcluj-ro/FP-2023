@@ -10,7 +10,7 @@ from src2023.seminar.group913.seminar11.repository.repository import Repository
 from src2023.seminar.group913.seminar11.service.car_service import CarService
 from src2023.seminar.group913.seminar11.service.client_service import ClientService
 from src2023.seminar.group913.seminar11.service.rental_service import RentalService
-from src2023.seminar.group913.seminar11.service.undo_service import UndoService
+from src2023.seminar.group913.seminar11.service.undo_service import UndoService, UndoError
 from src2023.seminar.group913.seminar11.util import print_repos_with_message
 
 
@@ -76,7 +76,10 @@ def undo_example_hard():
     '''
     Last redo
     '''
-    undo_service.redo()
+    try:
+        undo_service.redo()
+    except UndoError as ue:
+        print(ue)
     print_repos_with_message("1 redo - but there are no more redos", client_repo, car_repo, None)
 
 

@@ -1,5 +1,5 @@
-from src2023.seminar.group913.seminar12.domain.flight import Flight
-from src2023.seminar.group913.seminar12.domain.mytime import mytime
+from src2023.seminar.group911.seminar12.domain.flight import Flight
+from src2023.seminar.group911.seminar12.domain.mytime import mytime
 
 
 class RepoError(Exception):
@@ -19,6 +19,14 @@ class FlightRepo:
         if fl is not None:
             raise RepoError(f"Flight with id {fl.id} already exists!")
 
+        # NOTE Check that 2 departures/landing do not happen at the same airport
+        # in the same minute
+        for f in self.__data.values():
+            if flight.dep_city == f.dep_city:
+                if flight.dep_time == f.dep_time:
+                    raise RepoError("Flights " + f.id + " and " + flight.id + "  have same departure time and airport")
+        # TODO Some more of these nice checks :)
+
         self.__data[flight.id] = flight
         self.__save()
 
@@ -32,7 +40,7 @@ class FlightRepo:
         flight = self.find(flight_id)
 
         if flight is None:
-            raise RepoError(f"Fligh with id {flight_id} does not exist!")
+            raise RepoError(f"Flight with id {flight_id} does not exist!")
 
         fl = self.__data.pop(flight_id)
         self.__save()
@@ -62,7 +70,7 @@ class FlightRepo:
                 self.__data[flight_id] = flight
 
     def __save(self):
-        with open("../test/flights.txt", "w") as f:
+        with open("flights.txt", "w") as f:
             for flight in self.__data.values():
                 f.write(
                     f"{flight.id},{flight.dep_city},{flight.dep_time},{flight.arr_city},{flight.arr_time}\n"
