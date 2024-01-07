@@ -15,7 +15,7 @@ def generate_list(n: int) -> list:
 
 """
 Time complexity? 
-T(n) = n^2
+O(n^3)
 """
 
 
@@ -35,6 +35,8 @@ def max_sum_naive(array: list) -> (int, int, int):
     for i in range(len(array)):
         for j in range(i + 1, len(array) + 1):
             current_subset = array[i:j]
+            # also count sum() complexity
+            # at each step len(current_subset) -> Complexity of max_sum_naive: Theta(n^3)
             current_sum = sum(current_subset)
 
             print('Current subset is:', current_subset, 'with sum', current_sum)
@@ -45,6 +47,25 @@ def max_sum_naive(array: list) -> (int, int, int):
                 subarray_begin = i
 
     return max_subarray_sum, subarray_begin, subarray_end
+
+
+"""
+Complexity: O(n^2)
+"""
+
+
+def max_subarray_sum_naive2(arr: list):
+    if len(arr) == 0:
+        return 0
+    max_sum = arr[0]
+    for i in range(len(arr)):
+        crt_sum = 0
+        for j in range(i, len(arr)):
+            crt_sum += arr[j]
+            if crt_sum > max_sum:
+                max_sum = crt_sum
+
+    return max_sum
 
 
 """
@@ -93,7 +114,7 @@ def max_sum_dp(arr):
     dp = [0] * len(arr)
     dp[0] = arr[0]
     for i in range(1, len(arr)):
-        dp[i] = max(arr[i], dp[i-1] + arr[i])
+        dp[i] = max(arr[i], dp[i - 1] + arr[i])
         max_sum = max(dp[i], max_sum)
 
     return max_sum
