@@ -1,7 +1,8 @@
-from src2023.seminar.group912.seminar12.domain.flight import Flight
+from src2023.lecture.livecoding.lecture12.domain.exceptions import FlightAppException
+from src2023.lecture.livecoding.lecture12.domain.flight import Flight
 
 
-class ValidationError(Exception):
+class ValidationError(FlightAppException):
     def __init__(self, messages: list):
         self.__messages = messages
 

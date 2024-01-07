@@ -1,0 +1,2 @@
+class FlightAppException(Exception):
+    pass

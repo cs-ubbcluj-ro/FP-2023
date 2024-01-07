@@ -1,4 +1,5 @@
 from src2023.seminar.group911.seminar11.domain.car import Car
+from src2023.seminar.group911.seminar11.service.undo_service import FunctionCall, Operation
 
 
 class CarService:
@@ -19,6 +20,10 @@ class CarService:
             1. Delete the car from the repository
         """
         car = self._repository.delete(car_id)
+
+        redo = FunctionCall(self._repository.delete, car_id)
+        undo = FunctionCall(self._repository.store, car)
+        self._undo_service.record(Operation(undo, redo))
 
         '''
             2. Delete its rentals

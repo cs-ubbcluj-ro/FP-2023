@@ -60,3 +60,6 @@ class RentalService:
     def delete_rental(self, rental_id):
         rental = self._repository.delete(rental_id)
         return rental
+
+    def get_repo(self):
+        return self._repository

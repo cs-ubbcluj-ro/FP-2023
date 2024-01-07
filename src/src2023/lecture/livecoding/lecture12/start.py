@@ -1,9 +1,20 @@
-from src2023.seminar.group912.seminar12.repo.FligthRepo import FlightRepo
-from src2023.seminar.group912.seminar12.services.flight_service import FlightService
-from src2023.seminar.group912.seminar12.services.flight_validator import FlightValidator
-from src2023.seminar.group912.seminar12.ui.console import UI
+from src2023.lecture.livecoding.lecture12.domain.exceptions import FlightAppException
+from src2023.lecture.livecoding.lecture12.repo.FligthRepo import FlightRepo
+from src2023.lecture.livecoding.lecture12.repo.memory_repo import MemoryRepository
+from src2023.lecture.livecoding.lecture12.services.flight_service import FlightService
+from src2023.lecture.livecoding.lecture12.services.flight_validator import FlightValidator
+from src2023.lecture.livecoding.lecture12.services.settings import Settings
+from src2023.lecture.livecoding.lecture12.ui.console import UI
 
-repo = FlightRepo()
+# TODO Implement a binary file repo :)
+settings = Settings.get_instance()
+
+repo = None
+try:
+    repo = FlightRepo(settings.repo_file)
+except FlightAppException:
+    repo = MemoryRepository()
+
 validator = FlightValidator()
 # NOTE It's important that we pass the dependencies of the service here
 # We can change the validator/repository we use without touching the Service class

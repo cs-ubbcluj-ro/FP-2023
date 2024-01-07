@@ -1,8 +1,8 @@
 from datetime import time
 from unittest import TestCase
 
-from src2023.seminar.group912.seminar12.domain.flight import Flight
-from src2023.seminar.group912.seminar12.repo.FligthRepo import RepoError, FlightRepo
+from src2023.lecture.livecoding.lecture12.domain.flight import Flight
+from src2023.lecture.livecoding.lecture12.repo.FligthRepo import RepoError, FlightRepo
 
 
 class FlightRepoTest(TestCase):

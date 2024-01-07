@@ -1,8 +1,9 @@
-from src2023.seminar.group912.seminar12.domain.flight import Flight
-from src2023.seminar.group912.seminar12.domain.mytime import mytime
-from src2023.seminar.group912.seminar12.repo.FligthRepo import RepoError
-from src2023.seminar.group912.seminar12.services.flight_service import FlightService
-from src2023.seminar.group912.seminar12.services.flight_validator import ValidationError
+from src2023.lecture.livecoding.lecture12.domain.exceptions import FlightAppException
+from src2023.lecture.livecoding.lecture12.domain.flight import Flight
+from src2023.lecture.livecoding.lecture12.domain.mytime import mytime
+from src2023.lecture.livecoding.lecture12.repo.FligthRepo import RepoError
+from src2023.lecture.livecoding.lecture12.services.flight_service import FlightService, UndoRedoError
+from src2023.lecture.livecoding.lecture12.services.flight_validator import ValidationError
 
 
 class OperationCancelled(Exception):
@@ -19,6 +20,7 @@ class UI:
         print("2. Show flights")
         print("5. Longest no-fly time intervals")
         print("6. Flights allowed on backup radar")
+        print("7. Undo")
         print("0. Exit")
 
     def __input(self, message):
@@ -89,6 +91,9 @@ class UI:
             # print(str(f.dep_time) + " | " + str(f.arr_time) + " | " + f.id + " | " + f.dep_city + " - " + f.arr_city)
             print(f"{f.dep_time} | {f.arr_time} | {f.id} | {f.dep_city} - {f.arr_city}")
 
+    def __undo(self):
+        self.__service.undo()
+
     def start(self):
         while True:
             try:
@@ -103,6 +108,8 @@ class UI:
                     self.__determine_longest_no_flight_intervals()
                 elif opt == "6":
                     self.__maximum_number_of_backup_flights()
+                elif opt == "7":
+                    self.__undo()
                 elif opt == "0":
                     print("Goodbye")
                     return
@@ -110,6 +117,5 @@ class UI:
                     print("Invalid menu choice")
             except OperationCancelled:
                 print("Operation cancelled. Back to the main menu")
-            # NOTE With a common superclass called FlightAppException
-            except (ValidationError, RepoError) as ve:
+            except FlightAppException as ve:
                 print(ve)

@@ -22,6 +22,19 @@ class Operation:
         return self.__redo()
 
 
+class CascadedOperation:
+    def __init__(self, *operations: Operation):
+        self.__operations = operations
+
+    def undo(self):
+        for o in self.__operations:
+            o.undo()
+
+    def redo(self):
+        for o in self.__operations:
+            o.redo()
+
+
 def my_function(a, b, c, d, e):
     return a + b * c + d + e
 

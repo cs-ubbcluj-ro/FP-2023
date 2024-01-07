@@ -1,8 +1,8 @@
 from unittest import TestCase
 
-from src2023.seminar.group912.seminar12.domain.flight import Flight
-from src2023.seminar.group912.seminar12.domain.mytime import mytime
-from src2023.seminar.group912.seminar12.services.flight_validator import FlightValidator, ValidationError
+from src2023.lecture.livecoding.lecture12.domain.flight import Flight
+from src2023.lecture.livecoding.lecture12.domain.mytime import mytime
+from src2023.lecture.livecoding.lecture12.services.flight_validator import FlightValidator, ValidationError
 
 
 class TestFlightValidator(TestCase):

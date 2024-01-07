@@ -12,6 +12,7 @@ Ways to implement undo/redo
     Based on the Command design pattern https://refactoring.guru/design-patterns/command
 
 What to do
+    0. git update FP repository
     1. run undo_hard.py (client is restored instead of the car)
     2. in car_service.py, line 22 add support for undoing car
         deletion (it's in client_service.py lines 27 - 29)

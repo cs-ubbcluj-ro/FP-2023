@@ -1,4 +1,5 @@
 from src2023.seminar.group914.seminar11.domain.car import Car
+from src2023.seminar.group914.seminar11.service.undo_service import FunctionCall, Operation, CascadedOperation
 
 
 class CarService:
@@ -9,6 +10,7 @@ class CarService:
         self._undo_service = undo_service
 
     def create(self, car_id, license_plate, car_make, car_model):
+        # TODO undo/redo should also work here
         car = Car(car_id, license_plate, car_make, car_model)
         self._validator.validate(car)
         self._repository.store(car)
@@ -27,11 +29,32 @@ class CarService:
         rentals = self._rental_service.filter_rentals(None, car)
         for rent in rentals:
             self._rental_service.delete_rental(rent.id)
+
+        """
+        Record for undo/redo
+        """
+
+        # car deletion
+        fredo = FunctionCall(self._repository.delete, car_id)
+        fundo = FunctionCall(self._repository.store, car)
+        operations = [Operation(fundo, fredo)]
+
+        # rental deletion
+        rental_repo = self._rental_service.get_repo()
+        for rental in rentals:
+            fredo = FunctionCall(self._rental_service.delete_rental, rental.id)
+            fundo = FunctionCall(rental_repo.store, rental)
+            operations.append(Operation(fundo, fredo))
+
+        # notify undo_service
+        self._undo_service.record_undo(CascadedOperation(*operations))
+
         return car
 
     def update(self, car):
         """
             NB! Undo/redo is also needed here
         """
+        # TODO undo/redo should also work here
         # TODO Implement later...
         pass

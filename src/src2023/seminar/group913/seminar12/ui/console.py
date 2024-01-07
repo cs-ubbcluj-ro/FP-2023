@@ -22,7 +22,7 @@ class UI:
             opt = input(">>")
 
             if opt == "1":
-                pass
+                self.__add_flight()
             elif opt == "2":
                 self.__display_flights()
             elif opt == "0":

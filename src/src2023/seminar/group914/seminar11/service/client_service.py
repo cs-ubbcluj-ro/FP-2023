@@ -1,4 +1,5 @@
 from src2023.seminar.group914.seminar11.domain.client import Client
+from src2023.seminar.group914.seminar11.service.undo_service import FunctionCall, Operation
 
 
 class ClientService:
@@ -20,10 +21,20 @@ class ClientService:
         """
         client = self._repository.delete(client_id)
 
+        """
+        Record client deletion for undo/redo
+        undo/redo do not have to be validated
+        do not record undo/redo if the operation was not completed (exceptions)
+        """
+        redo_fun = FunctionCall(self._repository.delete, client_id)
+        undo_fun = FunctionCall(self._repository.store, client)
+        self._undo_service.record_undo(Operation(undo_fun, redo_fun))
+
         '''
             2. Delete their rentals
             NB! This implementation is not transactional, i.e. the two delete operations are performed separately
         '''
+        # TODO Also undo/redo the rentals
         rentals = self._rental_service.filter_rentals(client, None)
         for rent in rentals:
             self._rental_service.delete_rental(rent.getId(), False)

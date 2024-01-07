@@ -1,15 +1,17 @@
-from src2023.seminar.group912.seminar12.domain.flight import Flight
-from src2023.seminar.group912.seminar12.domain.mytime import mytime
+from src2023.lecture.livecoding.lecture12.domain.exceptions import FlightAppException
+from src2023.lecture.livecoding.lecture12.domain.flight import Flight
+from src2023.lecture.livecoding.lecture12.domain.mytime import mytime
 
 
-class RepoError(Exception):
+class RepoError(FlightAppException):
     pass
 
 
 class FlightRepo:
-    def __init__(self):
+    def __init__(self, file_name: str):
         # NOTE keys are flight.id, values are the flight objects
         self.__data = {}
+        self.__file_name = file_name
         # NOTE We load all flight data when starting repo
         self.__load()
 
@@ -47,30 +49,37 @@ class FlightRepo:
         return fl
 
     def __load(self):
-        with open("flights.txt", "r") as f:
-            for line in f.readlines():
-                line = line.strip()
-                if line == "":
-                    continue
-                (
-                    flight_id,
-                    dep_city,
-                    dep_time,
-                    arr_city,
-                    arr_time,
-                ) = line.split(",")
+        lines = []
+        # NOTE with --- makes sure that the file is closed regardless of how this code exits
+        try:
+            with open(self.__file_name, "r") as f:
+                lines = f.readlines()
+        except FileNotFoundError:
+            raise RepoError("Cannot find input file " + self.__file_name + ". Program starts with not flights")
 
-                dep_time_hm = dep_time.split(":")
-                dep_time = mytime(int(dep_time_hm[0]), int(dep_time_hm[1]))
-                arr_time_hm = arr_time.split(":")
-                arr_time = mytime(int(arr_time_hm[0]), int(arr_time_hm[1]))
+        for line in lines:
+            line = line.strip()
+            if line == "":
+                continue
+            (
+                flight_id,
+                dep_city,
+                dep_time,
+                arr_city,
+                arr_time,
+            ) = line.split(",")
 
-                flight = Flight(flight_id, dep_city, dep_time, arr_city, arr_time)
+            dep_time_hm = dep_time.split(":")
+            dep_time = mytime(int(dep_time_hm[0]), int(dep_time_hm[1]))
+            arr_time_hm = arr_time.split(":")
+            arr_time = mytime(int(arr_time_hm[0]), int(arr_time_hm[1]))
 
-                self.__data[flight_id] = flight
+            flight = Flight(flight_id, dep_city, dep_time, arr_city, arr_time)
+
+            self.__data[flight_id] = flight
 
     def __save(self):
-        with open("flights.txt", "w") as f:
+        with open(self.__file_name, "w") as f:
             for flight in self.__data.values():
                 f.write(
                     f"{flight.id},{flight.dep_city},{flight.dep_time},{flight.arr_city},{flight.arr_time}\n"

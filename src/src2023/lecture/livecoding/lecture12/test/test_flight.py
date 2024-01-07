@@ -1,8 +1,8 @@
 from unittest import TestCase
 from datetime import time
 
-from src2023.seminar.group912.seminar12.domain.flight import Flight
-from src2023.seminar.group912.seminar12.domain.mytime import mytime
+from src2023.lecture.livecoding.lecture12.domain.flight import Flight
+from src2023.lecture.livecoding.lecture12.domain.mytime import mytime
 
 
 class FlightTest(TestCase):

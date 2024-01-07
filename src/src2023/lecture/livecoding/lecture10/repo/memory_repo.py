@@ -21,7 +21,7 @@ class RepoIterator:
 class MemoryRepository:
     def __init__(self):
         # key is id property value of IdObject, value is object itself
-        self.__data = {}
+        self._data = {}
 
     def add(self, object: IdObject):
         """
@@ -34,10 +34,10 @@ class MemoryRepository:
         if not isinstance(object, IdObject):
             raise TypeError("Can only add IdObject instances")
 
-        if object.id in self.__data.keys():
+        if object.id in self._data.keys():
             raise RepositoryError("Car already exists")
 
-        self.__data[object.id] = object
+        self._data[object.id] = object
 
     def remove(self, _id: int) -> IdObject:
         """
@@ -48,7 +48,8 @@ class MemoryRepository:
         """
         if self.find(_id) == None:
             raise RepositoryError("Object doesn't exist.")
-        return self.__data.pop(_id)
+
+        return self._data.pop(_id)
 
     def find(self, _id: int) -> IdObject:
         """
@@ -58,26 +59,26 @@ class MemoryRepository:
         """
 
         # condition ? if True : if False
-        return self.__data[_id] if _id in self.__data.keys() else None
+        return self._data[_id] if _id in self._data.keys() else None
 
     def __iter__(self):
         """
         This is the Iterator design pattern
         https://refactoring.guru/design-patterns/iterator
         """
-        return RepoIterator(list(self.__data.values()))
+        return RepoIterator(list(self._data.values()))
 
     def __getitem__(self, item):
-        if item not in self.__data:
+        if item not in self._data:
             return None
-        return self.__data[item]
+        return self._data[item]
 
     def __len__(self):
         """
         Return the number of cars in repository
         :return:
         """
-        return len(self.__data)
+        return len(self._data)
 
 # r = MemoryRepository()
 # r.remove(100)
