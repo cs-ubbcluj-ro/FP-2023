@@ -14,14 +14,70 @@ Divide&Conquer
 4) When to apply?
 
 ---------------------------------------------------------------------
-
 Backtracking
+
 1) Principles
+-> Given the formalization of a problem solution as a vector
+-> progressively build the solution vector starting from the first element
+    and adding next elements, checking if the partial configuration can lead
+    to a solution, and going back to the previous element in the solution if
+    it cannot
 2) Elements we need to identify/define
-3) Examples
+
+-> the formalization of the problem solution as a vector
+        x = [x1, x2, ..., xn]
+-> the search space: x ∈ A, A = A1 x A2 x ... x An (cartesian product of sets Ai, i=1,..,n)
+    = what values can each of the elements of the solution take?
+-> candidate solution = partial configuration that can lead to a solution to the problem
+        x = [x1, x2, ..., xk]
+        where k = number of elements/components already added to the partial configuration
+-> consistent(candidate_solution) function
+    = function that checks if a partial configuration (the candidate_solution given as parameter)
+            can lead to a solution
+-> solution(candidate_solution) function
+    = function that checks if the given candidate solution is a solution to the problem
+
+
+3) Example problems
+
+BT can be applied for problems which fulfill the following conditions:
+    -> the solution to the problem can be formalized as a vector(list) [x1, x2, ..., xn],
+        where xi takes values from a set Ai, each set Ai is finite
+
+
+1. Read a word formed from a maximum of 10 distinct lowercase letters. Display the
+    anagrams of the read word:
+   a) all anagrams, in lexicographic order
+   b) anagrams that do not contain two adjacent vowels or two adjacent consonants
+            (i.e., vowels and consonants must alternate).
+
+2. Read a natural number n. Generate and display all combinations of 2*n+1 binary digits that
+    do not have two adjacent 1 digits.
+
+3. Read a natural number n with at most 9 digits. Display all ways to write n as a product
+    of distinct proper divisors of s.
+
+4. Read two natural numbers n and s (n<=10, s<=20). Display in ascending order all
+    n-digit numbers whose digit sum is equal to s, and any two adjacent digits have different parity.
+
+5. Read a natural number n. Display the permutations of the set 1,2,...,n in which
+   the even elements are fixed points (they are in positions equal to their value).
+
+6. Display all increasing subsequences of length>1 for a given list of n numbers.
+
+
 4) When to apply?
 
+-> we need to find more than one solution/ALL solutions for a problem
+-> suitable for when we need more than one solution or all solutions to
+    a problem as it is a method that systematically goes over all possible
+    configurations in the search space
+-> when high complexity is not an issue - backtracking method has exponential
+    time complexity
+
+
 ----------------------------------------------------------------------
+
 Greedy
 
 1) Principles
