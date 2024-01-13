@@ -15,7 +15,7 @@ class ComputerPlayer:
             row = random.randint(1, self.__own_board.size + 1)
             column = random.randint(1, self.__own_board.size + 1)
             self.__own_board.place_ship(row, column)
-            print(row, column)
+            # print(row, column)
         except OutsideOfBoundsError:
             self.place_ship()
 

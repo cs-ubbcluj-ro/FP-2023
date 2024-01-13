@@ -39,8 +39,10 @@ class Console:
 
         self.__computer_player.place_ship()
         self.__place_user_ship()
-
+        print("Initial boards:")
+        self.print_current_game_state()
         human_player_turn = True
+        #TO DO: eliminate duplicate code (e.g. exception catching)
         while True:
             if human_player_turn:
                 print("Input coordinates for hit:")
