@@ -1,0 +1,44 @@
+Implement a (simplified) game of Battleship.
+
+Human and computer players have one board each with 1 ship of length 3, placed horizontally.
+Human player can choose where to place their ship.
+Computer player places ship randomly.
+
+Both computer and human player take turns in firing upon the other's board:
+    --human chooses row and column to hit
+    --computer fires randomly
+
+If either of the player's ships is sunk, then the game is over.
+
+The boards will be shown in a manner similar to this (computer
+board hides ship):
+
+Player
++---+---+---+---+---+---+
+| / | A | B | C | D | E |
++===+===+===+===+===+===+
+| 1 |   |   | X | X | X |
++---+---+---+---+---+---+
+| 2 |   |   |   |   |   |
++---+---+---+---+---+---+
+| 3 |   |   |   |   |   |
++---+---+---+---+---+---+
+| 4 |   |   |   |   |   |
++---+---+---+---+---+---+
+| 5 |   |   |   |   |   |
++---+---+---+---+---+---+
+
+Computer
++---+---+---+---+---+---+
+| / | A | B | C | D | E |
++===+===+===+===+===+===+
+| 1 |   |   |   |   |   |
++---+---+---+---+---+---+
+| 2 |   |   |   |   |   |
++---+---+---+---+---+---+
+| 3 |   |   |   |   |   |
++---+---+---+---+---+---+
+| 4 |   |   |   |   |   |
++---+---+---+---+---+---+
+| 5 |   |   |   |   |   |
++---+---+---+---+---+---+

@@ -62,3 +62,4 @@ if __name__ == "__main__":
     fc = FunctionCall(fun_fun_fun, 2, 3, 4, 5, 6)
     print(fc.call())
     print(fc())
+
