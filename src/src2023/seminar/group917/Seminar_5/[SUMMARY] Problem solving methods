@@ -18,10 +18,12 @@ COMBINE: combine the solutions to the subproblems into the solution to the origi
 
 !! Sometimes we also have to solve subproblems that are not quite the same as the original subproblem
 -> we consider it part of the COMBINE step
+
 2) Elements we need to identify/define
 Identify:
     -> recursive case
     -> base case
+
 3) Examples
 
 1. Compute the sum of the elements of a given list.
@@ -34,15 +36,13 @@ Identify:
 
 5. Compute greatest common divisor for the elements in a given list.
 
-6.
+
 4) When to apply?
     -> when problem can be decomposed in simpler subproblems that are of the same type (or
      closely related type)
     -> when the problem can be decomposed in independent subproblems (i.e. they
     are solved separately; solution to one subproblem does not affect solution to
     another subproblem)
-
-
 
 ---------------------------------------------------------------------
 Backtracking
@@ -99,7 +99,6 @@ BT can be applied for problems which fulfill the following conditions:
 
 4) When to apply?
 
--> we need to find more than one solution/ALL solutions for a problem
 -> suitable for when we need more than one solution or all solutions to
     a problem as it is a method that systematically goes over all possible
     configurations in the search space
@@ -112,17 +111,82 @@ BT can be applied for problems which fulfill the following conditions:
 Greedy
 
 1) Principles
+
+-> builds solution in small steps
+-> at each step, make choice that looks best in the moment
+-> it works if by making this locally optimal choice we
+    arrive at a globally optimal solution
 2) Elements we need to identify/define
+
+1. Candidate set: where we take elements of the solution from
+2. Selection function: selecting best candidate at a given moment
+    -> which rule to use for local selection (a lot of rules can be used
+    and even seem suitable/correct - verify your intuitions!)
+3. Acceptable function: verifies if a given candidate can be added to the
+        current solution/if the (partial) solution with the given candidate appended
+        follows the defined rules for validity
+4. Solution function: checks if the current partial solution represents a complete solution
+        to the problem
+5. Objective function: assigns a value to each (partial) solution
+
 3) Examples
+
+1. Activity scheduling problem and variants
+2. Fractional knapsack
+
+See also: https://www.geeksforgeeks.org/greedy-algorithms/
+
 4) When to apply?
 
+TO ADD
 ----------------------------------------------------------------------
 
 Dynamic programming
 
 1) Principles
+
+-> similar tp D&C, solves subproblems and combines their solutions to obtain the
+    global solution, but in contrast to D&C, subproblems overlap
+-> 2 approaches
+    ->top-down with memoization
+        -> write the recursive solution
+        -> save results for subproblems (memoization)
+        -> when solving, check if solution was computed before, if yes, return saved value
+            else compute it
+    ->bottom-up:
+        ->solve smallest problems first
+        ->when solving a particular problem, we have already computed solutions to
+            the subproblems we need to base our decision on
+        ->use table/matrix to store results for each subproblem, fill in as you go along
+            based on previously obtained results
+
 2) Elements we need to identify/define
+
+TO ADD
+
 3) Examples
+
+1. Cutting a rod
+2. Longest common subsequence
+3. Longest increasing subsequence
+4. Subset sum
+
+See also: https://www.geeksforgeeks.org/dynamic-programming/
+
 4) When to apply?
+-> in optimization problems that have the following characteristics:
+        ->optimal substructure
+            -> a problem exhibits this if an optimal solution contains within it
+                optimal solutions to subproblems
+        ->overlapping subproblems
+            -> implies that some subproblems get solved repeatedly
+-> in contrast to D&C, DP is applicable when problems overlap in the sense that problems
+    share subproblems, and they may get solved repeatedly; D&C generally solves brand-new
+    problems at each step
+
+-> in contrast to Greedy, dynamic programming finds optimal solutions to subproblems
+        and then uses them to make an informed choice in order to build the solution;
+        Greedy first makes the choice, chooses the most promising candidate at that point
+        without solving all possible related smaller subproblems
 
 ----------------------------------------------------------------------
