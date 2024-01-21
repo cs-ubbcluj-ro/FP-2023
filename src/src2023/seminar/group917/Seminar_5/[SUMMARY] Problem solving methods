@@ -114,8 +114,11 @@ Greedy
 
 -> builds solution in small steps
 -> at each step, make choice that looks best in the moment
--> it works if by making this locally optimal choice we
-    arrive at a globally optimal solution
+    (and hope (well, ideally, prove, but it can be non-trivial to do so)
+     it leads to globally optimal solution)
+
+
+
 2) Elements we need to identify/define
 
 1. Candidate set: where we take elements of the solution from
@@ -138,7 +141,9 @@ See also: https://www.geeksforgeeks.org/greedy-algorithms/
 
 4) When to apply?
 
-TO ADD
+If by making the locally optimal choice we
+    arrive at a globally optimal solution
+
 ----------------------------------------------------------------------
 
 Dynamic programming
@@ -162,7 +167,12 @@ Dynamic programming
 
 2) Elements we need to identify/define
 
-TO ADD
+->prove principle of optimality holds
+    - global optimum implies partial optimum
+->define structure of optimal solution
+->define recurrence that says how global optimum
+can be obtained from partial optima
+->implement recursively/iteratively based on recurrence
 
 3) Examples
 
